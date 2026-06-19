@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { JsonField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 
 function pretty(v: unknown) {
   if (v === undefined) return "";

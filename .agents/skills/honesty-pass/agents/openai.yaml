@@ -1,0 +1,4 @@
+interface:
+  display_name: "Honesty Pass"
+  short_description: "Find and fix dishonest code boundaries"
+  default_prompt: "Use $honesty-pass to run the first honesty rule against this code."

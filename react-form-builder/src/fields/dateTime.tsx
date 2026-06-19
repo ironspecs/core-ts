@@ -1,7 +1,7 @@
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { DateTimeField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 
 export function DateTimeInput(props: FieldComponentProps<DateTimeField>) {
   const { field, name } = props;

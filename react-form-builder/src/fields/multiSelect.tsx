@@ -2,7 +2,7 @@ import * as Popover from "@radix-ui/react-popover";
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { MultiSelectField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { Typography } from "@core-ts/react";
 
 function normalize(v: unknown): string[] {

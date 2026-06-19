@@ -1,7 +1,7 @@
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { RichTextField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 
 export function RichText(props: FieldComponentProps<RichTextField>) {
   const { field, name } = props;

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { KeyValuePairsField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { Typography } from "@core-ts/react";
 
 function normalize(v: unknown): Record<string, string> {

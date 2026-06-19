@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 
 import { useField } from "react-final-form";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { FileUploadField } from "../schema.js";
 import { FieldComponentProps } from "../registryTypes.js";
 import { Typography } from "@core-ts/react";

@@ -2,7 +2,7 @@ import * as Select from "@radix-ui/react-select";
 import { useField, useForm } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { DiscriminatingFormField, Field } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { joinName } from "../dotPath.js";
 import { FieldRenderer } from "../formBuilder.js";
 import { Typography } from "@core-ts/react";

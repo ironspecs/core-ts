@@ -1,7 +1,7 @@
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { SelectField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { pickError } from "../useFinalError.js";
 
 export function Select(props: FieldComponentProps<SelectField>) {

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { CodeEditorField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 
 function toText(field: CodeEditorField, v: unknown) {
   if (typeof v === "string") return v;

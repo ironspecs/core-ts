@@ -1,7 +1,7 @@
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { RatingField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 
 export function Rating(props: FieldComponentProps<RatingField>) {
   const { field, name } = props;

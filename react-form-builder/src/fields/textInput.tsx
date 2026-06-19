@@ -1,6 +1,6 @@
 import { useField } from "react-final-form";
 import type { TextInputField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { pickError } from "../useFinalError.js";
 
 type TextInputProps = {

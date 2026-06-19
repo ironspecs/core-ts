@@ -1,7 +1,7 @@
 import { useFormState } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { StatusChecklistField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 import { getIn, joinName } from "../dotPath.js";
 import { Typography } from "@core-ts/react";
 

@@ -21,5 +21,5 @@ Common commands:
 - `bun run typecheck`
 - `bun run lint`
 
-The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with `npm link`.
+The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with Bun `file:` overrides.
 Its official source lives in the GitHub `ironspecs/core-ts` repository.

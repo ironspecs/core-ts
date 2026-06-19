@@ -32,21 +32,21 @@ jobs:
         run: bun run test
 
       - name: Check package
-        run: npm pack --dry-run
+        run: bun pm pack --dry-run
         working-directory: react
 
       - name: Check form builder package
-        run: npm pack --dry-run
+        run: bun pm pack --dry-run
         working-directory: react-form-builder
 
       - name: Test packed package exports
         run: |
           mkdir -p "$RUNNER_TEMP/package-test"
-          npm pack --pack-destination "$RUNNER_TEMP/package-test" ./react
-          npm pack --pack-destination "$RUNNER_TEMP/package-test" ./react-form-builder
+          (cd react && bun pm pack --destination "$RUNNER_TEMP/package-test")
+          (cd react-form-builder && bun pm pack --destination "$RUNNER_TEMP/package-test")
           cd "$RUNNER_TEMP/package-test"
-          npm init -y
-          npm install ./*.tgz react@^19 react-dom@^19 typescript@~5.7.2
+          bun init -y
+          bun add ./*.tgz react@^19 react-dom@^19 typescript@~5.7.2
           cat > tsconfig.json <<'EOF'
           {
             "compilerOptions": {
@@ -153,7 +153,7 @@ jobs:
           setIn({}, path, 42);
           buildSparseMergePatchFromFinalForm({ values: {}, modified: {} });
           EOF
-          npx tsc --noEmit
+          bunx tsc --noEmit
           cat > package.test.mjs <<'EOF'
           import assert from 'node:assert/strict';
           import test from 'node:test';

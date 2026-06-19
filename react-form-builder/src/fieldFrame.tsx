@@ -1,3 +1,6 @@
+// Owns the shared form field chrome for labels, descriptions, errors, and
+// child field controls. Keep this component presentational; field state,
+// validation, and value ownership belong to callers.
 import { type HTMLAttributes, type ReactNode } from "react";
 import { cn } from "@core-ts/react";
 import * as Label from "@radix-ui/react-label";

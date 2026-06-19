@@ -1,7 +1,7 @@
 import { useField } from "react-final-form";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { SliderField } from "../schema.js";
-import { FieldFrame } from "../ui/fieldFrame.js";
+import { FieldFrame } from "../fieldFrame.js";
 
 export function Slider(props: FieldComponentProps<SliderField>) {
   const { field, name } = props;
