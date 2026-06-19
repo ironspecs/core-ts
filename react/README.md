@@ -6,6 +6,8 @@ Current contents:
 
 - Shared runtime helpers such as `cn`
 - Shared React UI primitives such as `Typography`
+- Shared behavior bundles such as destructive buttons, feature-gated buttons,
+  submit buttons, markdown, theme toggles, and feature flags
 - React type augmentation for `data-testid`
 - Source files under `src/`
 - Standard `tsc` build output under `dist/`

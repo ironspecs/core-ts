@@ -14,6 +14,7 @@
       "name": "@core-ts/react",
       "version": "0.1.0",
       "dependencies": {
+        "@tanstack/react-query": "^5.90.3",
         "@tanstack/react-router": "^1.132.23",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",

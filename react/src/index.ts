@@ -3,6 +3,16 @@ import "./types/react-augmented.js";
 export { ErrorBoundary } from "./components/errors/ErrorBoundary.js";
 export type { ErrorBoundaryLabels } from "./components/errors/ErrorBoundary.js";
 export {
+  DeleteConfirmationDialog,
+  DestructiveButton,
+} from "./components/destructive-button/index.js";
+export type {
+  DeleteConfirmationDialogLabels,
+  DeleteConfirmationDialogProps,
+  DestructiveButtonLabels,
+  DestructiveButtonProps,
+} from "./components/destructive-button/index.js";
+export {
   FeatureFlagProvider,
   useFeatureFlags,
   resolveFeatureFlags,
@@ -11,12 +21,40 @@ export type {
   FeatureFlagProviderProps,
   FeatureFlags,
 } from "./components/feature-flags/index.js";
+export {
+  FeatureButton,
+  FeatureLockedDialog,
+  isSubscriptionFeatureEnabled,
+} from "./components/feature-button/index.js";
+export type {
+  FeatureButtonAccessState,
+  FeatureButtonConfig,
+  FeatureButtonLabels,
+  FeatureButtonProps,
+  FeatureButtonSession,
+  FeatureButtonSize,
+  FeatureButtonVariant,
+  FeatureLockedDialogProps,
+  FetchAccountSubscriptionFeatures,
+  SubscriptionFeatureLike,
+} from "./components/feature-button/index.js";
 export { Heading } from "./components/ui/Heading.js";
 export type { HeadingElement, HeadingProps } from "./components/ui/Heading.js";
 export { useMediaQuery } from "./hooks/useMediaQuery.js";
 export { useMountEffect } from "./hooks/useMountEffect.js";
 export { MarkdownBlock } from "./components/markdown/index.js";
 export type { MarkdownBlockProps } from "./components/markdown/index.js";
+export {
+  SubmitButton,
+  useSubmitAction,
+} from "./components/submit-button/index.js";
+export type {
+  SubmitButtonProps,
+  SubmitButtonState,
+  SubmitActionRunResult,
+  UseSubmitActionParams,
+  UseSubmitActionResult,
+} from "./components/submit-button/index.js";
 export { ThemeToggleIconButton } from "./components/theme-toggle/index.js";
 export type {
   Theme,
