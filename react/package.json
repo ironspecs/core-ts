@@ -1,0 +1,27 @@
+{
+  "name": "@core-ts/react",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "test": "echo 'No tests yet'",
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.15"
+  }
+}
