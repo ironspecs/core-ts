@@ -1,5 +1,5 @@
 {
-  "name": "@core-ts/react",
+  "name": "@core-ts/react-form-builder",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,9 +10,9 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./lib/objs": {
-      "types": "./dist/lib/objs.d.ts",
-      "import": "./dist/lib/objs.js"
+    "./fields/sectionShell": {
+      "types": "./dist/fields/sectionShell.d.ts",
+      "import": "./dist/fields/sectionShell.js"
     }
   },
   "files": [
@@ -23,18 +23,19 @@
     "url": "git@github.com:ironspecs/core-ts.git"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.132.23",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
-    "framer-motion": "^12.23.22",
-    "lucide-react": "^0.544.0",
-    "react-markdown": "^10.1.0",
-    "rehype-sanitize": "^6.0.0",
-    "remark-gfm": "^4.0.1",
-    "tailwind-merge": "^3.3.1"
+    "@core-ts/react": "0.1.0",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@tanstack/react-query": "^5.90.12",
+    "final-form-arrays": "^4.0.1",
+    "react-final-form": "^7.0.1",
+    "react-final-form-arrays": "^5.0.0"
   },
   "peerDependencies": {
-    "react": ">=19"
+    "react": ">=19",
+    "react-dom": ">=19"
   },
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
@@ -45,9 +46,11 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.10.2",
     "@types/react": "^19.1.15",
+    "@types/react-dom": "^19.1.9",
     "jsdom": "^25.0.1",
-    "react-dom": "^19.1.1",
     "vitest": "^4.1.9"
   }
 }

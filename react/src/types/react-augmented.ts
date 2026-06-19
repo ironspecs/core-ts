@@ -1,8 +1,8 @@
-import 'react';
+import "react";
 
-declare module 'react' {
+declare module "react" {
   interface HTMLAttributes<T> {
-    'data-testid'?: string;
+    "data-testid"?: string;
   }
 }
 

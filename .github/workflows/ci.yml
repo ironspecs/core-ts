@@ -35,13 +35,125 @@ jobs:
         run: npm pack --dry-run
         working-directory: react
 
-      - name: Test packed package
+      - name: Check form builder package
+        run: npm pack --dry-run
+        working-directory: react-form-builder
+
+      - name: Test packed package exports
         run: |
           mkdir -p "$RUNNER_TEMP/package-test"
-          npm pack --pack-destination "$RUNNER_TEMP/package-test"
+          npm pack --pack-destination "$RUNNER_TEMP/package-test" ./react
+          npm pack --pack-destination "$RUNNER_TEMP/package-test" ./react-form-builder
           cd "$RUNNER_TEMP/package-test"
           npm init -y
-          npm install ./*.tgz react@^19 react-dom@^19
+          npm install ./*.tgz react@^19 react-dom@^19 typescript@~5.7.2
+          cat > tsconfig.json <<'EOF'
+          {
+            "compilerOptions": {
+              "strict": true,
+              "target": "ES2022",
+              "module": "NodeNext",
+              "moduleResolution": "NodeNext",
+              "jsx": "react-jsx",
+              "skipLibCheck": false,
+              "noEmit": true
+            }
+          }
+          EOF
+          cat > package-types.test.mts <<'EOF'
+          import {
+            cn,
+            Heading,
+            Typography,
+            MarkdownBlock,
+            ThemeToggleIconButton,
+            ErrorBoundary,
+            FeatureFlagProvider,
+            useFeatureFlags,
+            useMediaQuery,
+            useMountEffect,
+            resolveFeatureFlags,
+            type FeatureFlags,
+            type HeadingProps,
+            type MarkdownBlockProps,
+            type ThemeToggleIconButtonProps,
+          } from '@core-ts/react';
+          import {
+            createMock,
+            deleteByPath,
+            getByPath,
+            getByPathOr,
+            setByPath,
+          } from '@core-ts/react/lib/objs';
+          import {
+            FieldRenderer,
+            FormBuilder,
+            buildSparseMergePatchFromFinalForm,
+            getIn,
+            joinName,
+            registry,
+            setIn,
+            type DotPath,
+            type FieldComponent,
+            type FieldComponentProps,
+            type FormBuilderProps,
+            type FormContext,
+            type FormSchema,
+            type Registry,
+            type ViewerSchema,
+          } from '@core-ts/react-form-builder';
+          import { SectionShell } from '@core-ts/react-form-builder/fields/sectionShell';
+
+          const className: string = cn('a', false, 'b');
+          const flags: FeatureFlags = {};
+          const path: DotPath = joinName('root', 'child');
+          const formSchema: FormSchema = [];
+          const formProps: FormBuilderProps = {
+            data: {},
+            schema: formSchema,
+            registry,
+            context: {},
+            labels: {
+              submitButton: 'Submit',
+              resetButton: 'Reset',
+            },
+            onSubmit: () => undefined,
+          };
+          const viewerSchema: ViewerSchema = {
+            type: 'section',
+            id: 'section',
+            title: 'Section',
+            fields: [],
+          };
+          const formContext: FormContext = {};
+          const textInput = registry.textInput;
+          const fieldComponent: FieldComponent = textInput;
+          const fieldProps: FieldComponentProps = {
+            field: { type: 'textInput', path: 'name', label: 'Name' },
+            name: 'name',
+            registry,
+            context: formContext,
+          };
+          const registryShape: Registry = registry;
+          const headingProps: HeadingProps = { as: 'h1', children: 'Heading' };
+          const markdownProps: MarkdownBlockProps = { markdown: '# Title' };
+          const themeToggleProps: ThemeToggleIconButtonProps = {
+            labels: {
+              switchToDarkMode: 'Switch to dark mode',
+              switchToLightMode: 'Switch to light mode',
+            },
+          };
+
+          getByPath({ nested: { value: 42 } }, 'nested.value');
+          getByPathOr({ nested: { value: 42 } }, 'nested.value', 0);
+          setByPath({}, 'nested.value', 42);
+          deleteByPath({ nested: { value: 42 } }, 'nested.value');
+          createMock<{ id: string }>({ id: 'id_1' });
+          getIn({ nested: { value: 42 } }, path);
+          setIn({}, path, 42);
+          buildSparseMergePatchFromFinalForm({ values: {}, modified: {} });
+          EOF
+          npx tsc --noEmit
           cat > package.test.mjs <<'EOF'
           import assert from 'node:assert/strict';
           import test from 'node:test';
@@ -59,6 +171,18 @@ jobs:
             assert.equal(typeof objs.getByPath, 'function');
             assert.equal(objs.getByPath({ nested: { value: 42 } }, 'nested.value'), 42);
           });
+
+          test('form builder root export resolves from packed install', async () => {
+            const formBuilder = await import('@core-ts/react-form-builder');
+            assert.equal(typeof formBuilder.FormBuilder, 'function');
+            assert.equal(typeof formBuilder.FieldRenderer, 'function');
+            assert.equal(typeof formBuilder.registry.textInput, 'function');
+            assert.equal(formBuilder.getIn({ nested: { value: 42 } }, 'nested.value'), 42);
+          });
+
+          test('form builder section shell subpath export resolves from packed install', async () => {
+            const sectionShell = await import('@core-ts/react-form-builder/fields/sectionShell');
+            assert.equal(typeof sectionShell.SectionShell, 'function');
+          });
           EOF
           node --test package.test.mjs
-        working-directory: react

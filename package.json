@@ -11,7 +11,8 @@
     "check-format": "prettier --check ."
   },
   "workspaces": [
-    "react"
+    "react",
+    "react-form-builder"
   ],
   "author": "Dane Stuckel",
   "license": "UNLICENSED",
