@@ -21,7 +21,7 @@
     "url": "git@github.com:ironspecs/core-ts.git"
   },
   "devDependencies": {
-    "@types/react": "^19.1.15",
+    "@types/react": "^19.2.17",
     "prettier": "^3.4.2",
     "typescript": "~5.7.2"
   },
