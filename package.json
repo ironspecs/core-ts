@@ -15,6 +15,10 @@
   ],
   "author": "Dane Stuckel",
   "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ironspecs/core-ts.git"
+  },
   "devDependencies": {
     "@types/react": "^19.1.15",
     "prettier": "^3.4.2",
