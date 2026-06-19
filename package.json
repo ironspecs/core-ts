@@ -13,7 +13,8 @@
   "workspaces": [
     "react",
     "react-form-builder",
-    "react-i18n"
+    "react-i18n",
+    "react-progression"
   ],
   "author": "Dane Stuckel",
   "license": "UNLICENSED",

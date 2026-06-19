@@ -90,6 +90,27 @@
         "react-dom": ">=19",
       },
     },
+    "react-progression": {
+      "name": "@core-ts/react-progression",
+      "version": "0.1.0",
+      "dependencies": {
+        "@core-ts/react": "0.1.0",
+        "lucide-react": "^0.544.0",
+      },
+      "devDependencies": {
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/react": "^16.1.0",
+        "@types/react": "^19.1.15",
+        "@types/react-dom": "^19.1.9",
+        "jsdom": "^25.0.1",
+        "react-dom": "^19.1.1",
+        "vitest": "^4.1.9",
+      },
+      "peerDependencies": {
+        "react": ">=19",
+        "react-dom": ">=19",
+      },
+    },
   },
   "packages": {
     "@adobe/css-tools": ["@adobe/css-tools@4.5.0", "", {}, "sha512-6OzddxPio9UiWTCemp4N8cYLV2ZN1ncRnV1cVGtve7dhPOtRkleRyx32GQCYSwDYgaHU3USMm84tNsvKzRCa1Q=="],
@@ -107,6 +128,8 @@
     "@core-ts/react-form-builder": ["@core-ts/react-form-builder@workspace:react-form-builder"],
 
     "@core-ts/react-i18n": ["@core-ts/react-i18n@workspace:react-i18n"],
+
+    "@core-ts/react-progression": ["@core-ts/react-progression@workspace:react-progression"],
 
     "@csstools/color-helpers": ["@csstools/color-helpers@5.1.0", "", {}, "sha512-S11EXWJyy0Mz5SYvRmY8nJYTFFd1LCNV+7cXyAgQtOOuzb4EsgfqDufL+9esx72/eLhsRdGZwaldu/h+E4t4BA=="],
 

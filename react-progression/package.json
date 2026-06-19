@@ -1,0 +1,56 @@
+{
+  "name": "@core-ts/react-progression",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./lib/workflow": {
+      "types": "./dist/lib/workflow.d.ts",
+      "import": "./dist/lib/workflow.js"
+    },
+    "./lib/runtime-slices": {
+      "types": "./dist/lib/runtime-slices.d.ts",
+      "import": "./dist/lib/runtime-slices.js"
+    },
+    "./hooks/workflow": {
+      "types": "./dist/hooks/workflow.d.ts",
+      "import": "./dist/hooks/workflow.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ironspecs/core-ts.git"
+  },
+  "dependencies": {
+    "@core-ts/react": "0.1.0",
+    "lucide-react": "^0.544.0"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  },
+  "scripts": {
+    "build": "tsc -b tsconfig.build.json",
+    "test": "vitest run",
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.1.15",
+    "@types/react-dom": "^19.1.9",
+    "jsdom": "^25.0.1",
+    "react-dom": "^19.1.1",
+    "vitest": "^4.1.9"
+  }
+}

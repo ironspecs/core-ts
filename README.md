@@ -6,6 +6,7 @@ Current workspace modules:
 
 - `react`
 - `react-i18n`
+- `react-progression`
 - `react-form-builder`
 
 Layout:
@@ -17,6 +18,10 @@ Layout:
 - `react-i18n/src/components`
 - `react-i18n/src/hooks`
 - `react-i18n/src/lib`
+- `react-progression/src/components`
+- `react-progression/src/hooks`
+- `react-progression/src/types`
+- `react-progression/src/lib`
 
 Common commands:
 
