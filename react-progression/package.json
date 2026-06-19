@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@core-ts/react": "0.1.0",
-    "lucide-react": "^0.544.0"
+    "lucide-react": "^1.21.0"
   },
   "peerDependencies": {
     "react": ">=19",
