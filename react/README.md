@@ -3,9 +3,11 @@
 Shared React-focused core TypeScript package for code extracted from `react-ts`.
 
 Current contents:
-- React type augmentations published through the package root types entrypoint
+- Shared runtime helpers such as `cn`
+- React type augmentation for `data-testid`
 - Source files under `src/`
-- Build script at `scripts/build.sh`
+- Standard `tsc` build output under `dist/`
+- Package entrypoints and types are declared in `package.json`
 
 Common commands:
 - `bun run build`

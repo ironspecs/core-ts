@@ -1,3 +1,3 @@
-import './types/react-augmented';
+import './types/react-augmented.js';
 
-export {};
+export { cn } from './lib/cn.js';

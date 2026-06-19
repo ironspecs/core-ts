@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "build": "bun run --workspaces build",
+    "build": "bun run --parallel --workspaces build",
     "test": "bun run --workspaces test",
-    "typecheck": "bun run --workspaces typecheck",
-    "lint": "bun run --workspaces lint",
+    "typecheck": "bun run --parallel --workspaces typecheck",
+    "lint": "bun run --parallel --workspaces lint",
     "format": "prettier --write .",
     "check-format": "prettier --check ."
   },
@@ -16,6 +16,7 @@
   "author": "Dane Stuckel",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/react": "^19.1.15",
     "prettier": "^3.4.2",
     "typescript": "~5.7.2"
   },

@@ -3,25 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1"
+  },
   "peerDependencies": {
     "react": ">=19"
   },
   "scripts": {
-    "build": "./scripts/build.sh",
-    "test": "echo 'No tests yet'",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "test": "bun test",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@types/react": "^19.1.15"
   }
 }

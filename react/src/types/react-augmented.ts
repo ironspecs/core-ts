@@ -5,3 +5,5 @@ declare module 'react' {
     'data-testid'?: string;
   }
 }
+
+export {};

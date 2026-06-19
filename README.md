@@ -18,4 +18,4 @@ Common commands:
 - `bun run typecheck`
 - `bun run lint`
 
-The `react` workspace builds distributable type artifacts into `react/dist` and exposes them through the package root.
+The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with `npm link`.
