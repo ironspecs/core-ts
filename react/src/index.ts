@@ -13,6 +13,8 @@ export type {
 } from "./components/feature-flags/index.js";
 export { Heading } from "./components/ui/Heading.js";
 export type { HeadingElement, HeadingProps } from "./components/ui/Heading.js";
+export { useMediaQuery } from "./hooks/useMediaQuery.js";
+export { useMountEffect } from "./hooks/useMountEffect.js";
 export { MarkdownBlock } from "./components/markdown/index.js";
 export type { MarkdownBlockProps } from "./components/markdown/index.js";
 export { ThemeToggleIconButton } from "./components/theme-toggle/index.js";
