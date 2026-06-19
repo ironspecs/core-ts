@@ -12,7 +12,8 @@
   },
   "workspaces": [
     "react",
-    "react-form-builder"
+    "react-form-builder",
+    "react-i18n"
   ],
   "author": "Dane Stuckel",
   "license": "UNLICENSED",

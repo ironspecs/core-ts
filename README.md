@@ -5,6 +5,8 @@ Sibling monorepo for new extracted core TypeScript modules that can be shared by
 Current workspace modules:
 
 - `react`
+- `react-i18n`
+- `react-form-builder`
 
 Layout:
 
@@ -12,6 +14,9 @@ Layout:
 - `react/src/hooks`
 - `react/src/types`
 - `react/src/lib`
+- `react-i18n/src/components`
+- `react-i18n/src/hooks`
+- `react-i18n/src/lib`
 
 Common commands:
 
