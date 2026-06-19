@@ -1,39 +1,45 @@
-import { describe, expect, it } from "bun:test";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
 
 import { Heading } from "./Heading.js";
 
 describe("Heading", () => {
   it("renders the requested heading element", () => {
-    const element = Heading({ as: "h2", children: "Section title" });
+    render(<Heading as="h2">Section title</Heading>);
 
-    expect(element.type).toBe("h2");
-    expect(element.props.children).toBe("Section title");
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Section title" }),
+    ).toBeInTheDocument();
   });
 
   it("applies the default size classes", () => {
-    const element = Heading({ as: "h1", children: "Page title" });
+    render(<Heading as="h1">Page title</Heading>);
 
-    expect(element.props.className).toContain("font-semibold");
-    expect(element.props.className).toContain("text-2xl");
+    expect(screen.getByRole("heading", { level: 1 })).toHaveClass(
+      "font-semibold",
+      "text-2xl",
+    );
   });
 
   it("applies the requested size classes", () => {
-    const element = Heading({
-      as: "h3",
-      children: "Subsection",
-      size: "sm",
-    });
+    render(
+      <Heading as="h3" size="sm">
+        Subsection
+      </Heading>,
+    );
 
-    expect(element.props.className).toContain("text-lg");
+    expect(screen.getByRole("heading", { level: 3 })).toHaveClass("text-lg");
   });
 
   it("merges caller class names last", () => {
-    const element = Heading({
-      as: "h4",
-      children: "Custom",
-      className: "custom-class",
-    });
+    render(
+      <Heading as="h4" className="custom-class">
+        Custom
+      </Heading>,
+    );
 
-    expect(element.props.className).toContain("custom-class");
+    expect(screen.getByRole("heading", { level: 4 })).toHaveClass(
+      "custom-class",
+    );
   });
 });

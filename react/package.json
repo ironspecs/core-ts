@@ -19,9 +19,14 @@
     "url": "git@github.com:ironspecs/core-ts.git"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.132.23",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
+    "react-markdown": "^10.1.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.3.1"
   },
   "peerDependencies": {
@@ -29,8 +34,16 @@
   },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
-    "test": "bun test",
+    "test": "vitest run",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.1.15",
+    "jsdom": "^25.0.1",
+    "react-dom": "^19.1.1",
+    "vitest": "^2.1.8"
   }
 }
