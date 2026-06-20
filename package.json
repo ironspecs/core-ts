@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "build": "bun run --parallel --workspaces build",
-    "test": "bun run --workspaces test",
+    "build": "bun run --filter='*' --workspaces build",
+    "test": "bun run --parallel --workspaces test",
     "typecheck": "bun run --parallel --workspaces typecheck",
     "lint": "bun run --parallel --workspaces lint",
     "format": "prettier --write .",
