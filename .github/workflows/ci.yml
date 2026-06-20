@@ -41,12 +41,32 @@ jobs:
 
       - name: Test packed package exports
         run: |
-          mkdir -p "$RUNNER_TEMP/package-test"
+          mkdir -p "$RUNNER_TEMP/package-test/packages/react"
+          mkdir -p "$RUNNER_TEMP/package-test/packages/react-form-builder"
           (cd react && bun pm pack --destination "$RUNNER_TEMP/package-test")
           (cd react-form-builder && bun pm pack --destination "$RUNNER_TEMP/package-test")
           cd "$RUNNER_TEMP/package-test"
-          bun init -y
-          bun add ./*.tgz react@^19 react-dom@^19 typescript@~5.7.2
+          tar -xzf core-ts-react-0.1.0.tgz -C packages/react --strip-components=1
+          tar -xzf core-ts-react-form-builder-0.1.0.tgz -C packages/react-form-builder --strip-components=1
+          cat > package.json <<'EOF'
+          {
+            "name": "package-test",
+            "private": true,
+            "type": "module",
+            "workspaces": [
+              "packages/react",
+              "packages/react-form-builder"
+            ],
+            "dependencies": {
+              "@core-ts/react": "0.1.0",
+              "@core-ts/react-form-builder": "0.1.0",
+              "react": "^19",
+              "react-dom": "^19",
+              "typescript": "~5.7.2"
+            }
+          }
+          EOF
+          bun install
           cat > tsconfig.json <<'EOF'
           {
             "compilerOptions": {
