@@ -9,18 +9,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./lib/i18n": {
-      "types": "./dist/lib/i18n.d.ts",
-      "import": "./dist/lib/i18n.js"
-    },
-    "./lib/language": {
-      "types": "./dist/lib/language.d.ts",
-      "import": "./dist/lib/language.js"
-    },
-    "./lib/labels": {
-      "types": "./dist/lib/labels.d.ts",
-      "import": "./dist/lib/labels.js"
     }
   },
   "files": [

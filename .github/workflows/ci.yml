@@ -35,6 +35,14 @@ jobs:
         run: bun pm pack --dry-run
         working-directory: react
 
+      - name: Check i18n package
+        run: bun pm pack --dry-run
+        working-directory: react-i18n
+
+      - name: Check progression package
+        run: bun pm pack --dry-run
+        working-directory: react-progression
+
       - name: Check form builder package
         run: bun pm pack --dry-run
         working-directory: react-form-builder
@@ -42,11 +50,17 @@ jobs:
       - name: Test packed package exports
         run: |
           mkdir -p "$RUNNER_TEMP/package-test/packages/react"
+          mkdir -p "$RUNNER_TEMP/package-test/packages/react-i18n"
+          mkdir -p "$RUNNER_TEMP/package-test/packages/react-progression"
           mkdir -p "$RUNNER_TEMP/package-test/packages/react-form-builder"
           (cd react && bun pm pack --destination "$RUNNER_TEMP/package-test")
+          (cd react-i18n && bun pm pack --destination "$RUNNER_TEMP/package-test")
+          (cd react-progression && bun pm pack --destination "$RUNNER_TEMP/package-test")
           (cd react-form-builder && bun pm pack --destination "$RUNNER_TEMP/package-test")
           cd "$RUNNER_TEMP/package-test"
           tar -xzf core-ts-react-0.1.0.tgz -C packages/react --strip-components=1
+          tar -xzf core-ts-react-i18n-0.1.0.tgz -C packages/react-i18n --strip-components=1
+          tar -xzf core-ts-react-progression-0.1.0.tgz -C packages/react-progression --strip-components=1
           tar -xzf core-ts-react-form-builder-0.1.0.tgz -C packages/react-form-builder --strip-components=1
           cat > package.json <<'EOF'
           {
@@ -55,11 +69,16 @@ jobs:
             "type": "module",
             "workspaces": [
               "packages/react",
+              "packages/react-i18n",
+              "packages/react-progression",
               "packages/react-form-builder"
             ],
             "dependencies": {
               "@core-ts/react": "0.1.0",
+              "@core-ts/react-i18n": "0.1.0",
+              "@core-ts/react-progression": "0.1.0",
               "@core-ts/react-form-builder": "0.1.0",
+              "i18next": "^25.6.0",
               "react": "^19",
               "react-dom": "^19",
               "typescript": "~5.7.2"
@@ -97,17 +116,27 @@ jobs:
             type HeadingProps,
             type MarkdownBlockProps,
             type ThemeToggleIconButtonProps,
-          } from '@core-ts/react';
-          import {
             createMock,
             deleteByPath,
             getByPath,
             getByPathOr,
             setByPath,
-          } from '@core-ts/react/lib/objs';
+          } from '@core-ts/react';
+          import {
+            createLabels,
+            SUPPORTED_LANGUAGE_CODES,
+            type SupportedLanguage,
+          } from '@core-ts/react-i18n';
+          import {
+            clampWorkflowCursor,
+            createEmptyRuntimeSlices,
+            createStepOperation,
+            type WorkflowOperation,
+          } from '@core-ts/react-progression';
           import {
             FieldRenderer,
             FormBuilder,
+            SectionShell,
             buildSparseMergePatchFromFinalForm,
             getIn,
             joinName,
@@ -122,10 +151,22 @@ jobs:
             type Registry,
             type ViewerSchema,
           } from '@core-ts/react-form-builder';
-          import { SectionShell } from '@core-ts/react-form-builder/fields/sectionShell';
 
           const className: string = cn('a', false, 'b');
           const flags: FeatureFlags = {};
+          const language: SupportedLanguage = SUPPORTED_LANGUAGE_CODES[0];
+          const labels = createLabels({
+            useLanguage: () => language,
+            getTranslator: () => (key) => key,
+          });
+          const cursor: number = clampWorkflowCursor({ cursor: 2, size: 4 });
+          const slices = createEmptyRuntimeSlices();
+          const operation: WorkflowOperation<Record<string, unknown>, Record<string, unknown>> =
+            createStepOperation({
+              operationId: 'step',
+              checkerId: 'checker',
+              blockId: 'block',
+            });
           const path: DotPath = joinName('root', 'child');
           const formSchema: FormSchema = [];
           const formProps: FormBuilderProps = {
@@ -163,6 +204,7 @@ jobs:
               switchToLightMode: 'Switch to light mode',
             },
           };
+          const sectionShell = SectionShell;
 
           getByPath({ nested: { value: 42 } }, 'nested.value');
           getByPathOr({ nested: { value: 42 } }, 'nested.value', 0);
@@ -172,6 +214,47 @@ jobs:
           getIn({ nested: { value: 42 } }, path);
           setIn({}, path, 42);
           buildSparseMergePatchFromFinalForm({ values: {}, modified: {} });
+          labels;
+          cursor;
+          slices;
+          operation;
+          sectionShell;
+          formProps;
+          viewerSchema;
+          fieldComponent;
+          fieldProps;
+          registryShape;
+          headingProps;
+          markdownProps;
+          themeToggleProps;
+          EOF
+          bunx tsc --noEmit
+          cat > package-private-subpaths.test.mts <<'EOF'
+          // @ts-expect-error deep imports are not part of the public API
+          import { getByPath as privateGetByPath } from '@core-ts/react/lib/objs';
+          // @ts-expect-error deep imports are not part of the public API
+          import { SUPPORTED_LANGUAGES as privateSupportedLanguages } from '@core-ts/react-i18n/lib/i18n';
+          // @ts-expect-error deep imports are not part of the public API
+          import { getCurrentLanguage as privateGetCurrentLanguage } from '@core-ts/react-i18n/lib/language';
+          // @ts-expect-error deep imports are not part of the public API
+          import { createLabels as privateCreateLabels } from '@core-ts/react-i18n/lib/labels';
+          // @ts-expect-error deep imports are not part of the public API
+          import { compileWorkflowPlan as privateCompileWorkflowPlan } from '@core-ts/react-progression/lib/workflow';
+          // @ts-expect-error deep imports are not part of the public API
+          import { createEmptyRuntimeSlices as privateCreateEmptyRuntimeSlices } from '@core-ts/react-progression/lib/runtime-slices';
+          // @ts-expect-error deep imports are not part of the public API
+          import { useWorkflowRuntime as privateUseWorkflowRuntime } from '@core-ts/react-progression/hooks/workflow';
+          // @ts-expect-error deep imports are not part of the public API
+          import { SectionShell as privateSectionShell } from '@core-ts/react-form-builder/fields/sectionShell';
+
+          privateGetByPath;
+          privateSupportedLanguages;
+          privateGetCurrentLanguage;
+          privateCreateLabels;
+          privateCompileWorkflowPlan;
+          privateCreateEmptyRuntimeSlices;
+          privateUseWorkflowRuntime;
+          privateSectionShell;
           EOF
           bunx tsc --noEmit
           cat > package.test.mjs <<'EOF'
@@ -184,25 +267,51 @@ jobs:
             assert.equal(root.cn('a', false, 'b'), 'a b');
             assert.equal(typeof root.Heading, 'function');
             assert.equal(typeof root.Typography, 'function');
+            assert.equal(typeof root.getByPath, 'function');
+            assert.equal(root.getByPath({ nested: { value: 42 } }, 'nested.value'), 42);
           });
 
-          test('lib objs subpath export resolves from packed install', async () => {
-            const objs = await import('@core-ts/react/lib/objs');
-            assert.equal(typeof objs.getByPath, 'function');
-            assert.equal(objs.getByPath({ nested: { value: 42 } }, 'nested.value'), 42);
+          test('i18n root export resolves from packed install', async () => {
+            const i18n = await import('@core-ts/react-i18n');
+            assert.equal(typeof i18n.createLabels, 'function');
+            assert.ok(Array.isArray(i18n.SUPPORTED_LANGUAGES));
+          });
+
+          test('progression root export resolves from packed install', async () => {
+            const progression = await import('@core-ts/react-progression');
+            assert.equal(typeof progression.clampWorkflowCursor, 'function');
+            assert.equal(progression.clampWorkflowCursor({ cursor: 9, size: 2 }), 1);
           });
 
           test('form builder root export resolves from packed install', async () => {
             const formBuilder = await import('@core-ts/react-form-builder');
             assert.equal(typeof formBuilder.FormBuilder, 'function');
             assert.equal(typeof formBuilder.FieldRenderer, 'function');
+            assert.equal(typeof formBuilder.SectionShell, 'function');
             assert.equal(typeof formBuilder.registry.textInput, 'function');
             assert.equal(formBuilder.getIn({ nested: { value: 42 } }, 'nested.value'), 42);
           });
 
-          test('form builder section shell subpath export resolves from packed install', async () => {
-            const sectionShell = await import('@core-ts/react-form-builder/fields/sectionShell');
-            assert.equal(typeof sectionShell.SectionShell, 'function');
+          test('private subpaths are not exported from packed packages', async () => {
+            const privateSubpaths = [
+              '@core-ts/react/lib/objs',
+              '@core-ts/react-i18n/lib/i18n',
+              '@core-ts/react-i18n/lib/language',
+              '@core-ts/react-i18n/lib/labels',
+              '@core-ts/react-progression/lib/workflow',
+              '@core-ts/react-progression/lib/runtime-slices',
+              '@core-ts/react-progression/hooks/workflow',
+              '@core-ts/react-form-builder/fields/sectionShell',
+            ];
+
+            for (const specifier of privateSubpaths) {
+              await assert.rejects(
+                import(specifier),
+                (error) =>
+                  error &&
+                  error.code === 'ERR_PACKAGE_PATH_NOT_EXPORTED',
+              );
+            }
           });
           EOF
           node --test package.test.mjs

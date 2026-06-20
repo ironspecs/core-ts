@@ -11,7 +11,7 @@ Current contents:
 - React type augmentation for `data-testid`
 - Source files under `src/`
 - Standard `tsc` build output under `dist/`
-- Package entrypoints and types are declared in `package.json`
+- The package root is the only public entrypoint
 
 Common commands:
 
@@ -19,3 +19,9 @@ Common commands:
 - `bun run test`
 - `bun run typecheck`
 - `bun run lint`
+
+## Public Surface
+
+Import from `@core-ts/react` only. Deep imports into `dist`, `src`,
+components, hooks, types, or `lib` are private implementation details and are
+not supported API.

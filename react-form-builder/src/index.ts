@@ -1,3 +1,9 @@
+/**
+ * Owns the public exports for the react-form-builder package. This file is the
+ * only supported package API boundary and does not add behavior beyond stable
+ * root exports.
+ */
+
 export {
   FieldRenderer,
   FormBuilder,
@@ -22,3 +28,4 @@ export type * from "./sharedSchema.js";
 export type * from "./viewerSchema.js";
 export { getIn, joinName, setIn } from "./dotPath.js";
 export type { DotPath } from "./dotPath.js";
+export { SectionShell } from "./fields/sectionShell.js";

@@ -25,7 +25,9 @@ Shared React i18n package extracted from the live `react-ts` i18next path.
 
 ## Public Surface
 
-Import from `@core-ts/react-i18n` unless a subpath export is needed for a narrow migration.
+Import from `@core-ts/react-i18n` only. Deep imports into `dist`, `src`,
+components, hooks, or `lib` are private implementation details and are not
+supported API.
 
 Common commands:
 

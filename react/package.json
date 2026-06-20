@@ -9,10 +9,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./lib/objs": {
-      "types": "./dist/lib/objs.d.ts",
-      "import": "./dist/lib/objs.js"
     }
   },
   "files": [

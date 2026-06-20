@@ -9,18 +9,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./lib/workflow": {
-      "types": "./dist/lib/workflow.d.ts",
-      "import": "./dist/lib/workflow.js"
-    },
-    "./lib/runtime-slices": {
-      "types": "./dist/lib/runtime-slices.d.ts",
-      "import": "./dist/lib/runtime-slices.js"
-    },
-    "./hooks/workflow": {
-      "types": "./dist/hooks/workflow.d.ts",
-      "import": "./dist/hooks/workflow.js"
     }
   },
   "files": [

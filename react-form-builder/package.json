@@ -9,10 +9,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./fields/sectionShell": {
-      "types": "./dist/fields/sectionShell.d.ts",
-      "import": "./dist/fields/sectionShell.js"
     }
   },
   "files": [

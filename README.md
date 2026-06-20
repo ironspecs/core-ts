@@ -38,5 +38,13 @@ Git hooks:
   tracked commit and push hooks.
 - Commit and push hooks both run `./scripts/check-dependency-versions.sh`.
 
+Public package API:
+
+- Each workspace package exposes only its package root.
+- Deep imports into package internals, `dist`, `src`, component directories,
+  hooks, types, fields, or `lib` are unsupported implementation details.
+- Anything intended for consumers must be re-exported from that package's
+  `src/index.ts`.
+
 The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with Bun `file:` overrides.
 Its official source lives in the GitHub `ironspecs/core-ts` repository.

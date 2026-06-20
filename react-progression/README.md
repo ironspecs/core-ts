@@ -33,8 +33,9 @@ workflow path.
 
 ## Public Surface
 
-Import from `@core-ts/react-progression` unless a subpath export is needed for a
-narrow migration.
+Import from `@core-ts/react-progression` only. Deep imports into `dist`, `src`,
+components, hooks, types, or `lib` are private implementation details and are
+not supported API.
 
 Common commands:
 

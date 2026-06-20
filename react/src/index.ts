@@ -1,3 +1,9 @@
+/**
+ * Owns the public exports for the react package. This file is the only
+ * supported package API boundary and does not add behavior beyond stable root
+ * exports.
+ */
+
 import "./types/react-augmented.js";
 
 export { ErrorBoundary } from "./components/errors/ErrorBoundary.js";
@@ -64,4 +70,12 @@ export type {
   ThemeToggleIconButtonProps,
 } from "./components/theme-toggle/index.js";
 export { cn } from "./lib/cn.js";
+export {
+  createMock,
+  deleteByPath,
+  getByPath,
+  getByPathOr,
+  setByPath,
+} from "./lib/objs.js";
+export type { DeepPartial } from "./lib/objs.js";
 export { Typography } from "./components/ui/Typography.js";
