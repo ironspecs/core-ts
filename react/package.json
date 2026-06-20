@@ -23,7 +23,7 @@
     "url": "git@github.com:ironspecs/core-ts.git"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90.3",
+    "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-router": "^1.132.23",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

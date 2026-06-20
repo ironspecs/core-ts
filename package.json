@@ -8,7 +8,10 @@
     "typecheck": "bun run --parallel --workspaces typecheck",
     "lint": "bun run --parallel --workspaces lint",
     "format": "prettier --write .",
-    "check-format": "prettier --check ."
+    "check-format": "prettier --check .",
+    "check:dependencies": "./scripts/check-dependency-versions.sh",
+    "pre-commit": "./scripts/pre-commit-checks.sh",
+    "pre-push": "./scripts/pre-push-checks.sh"
   },
   "workspaces": [
     "react",

@@ -30,6 +30,13 @@ Common commands:
 - `bun run test`
 - `bun run typecheck`
 - `bun run lint`
+- `bun run check:dependencies`
+
+Git hooks:
+
+- Run `git config core.hooksPath .githooks` after cloning to enable the
+  tracked commit and push hooks.
+- Commit and push hooks both run `./scripts/check-dependency-versions.sh`.
 
 The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with Bun `file:` overrides.
 Its official source lives in the GitHub `ironspecs/core-ts` repository.
