@@ -16,7 +16,7 @@ import {
   type SupportedLanguage,
   SUPPORTED_LANGUAGE_CODES,
 } from "./i18n.js";
-import type { LabelTranslator } from "./labels.js";
+import type { LabelTranslator } from "../hooks/useLabels.js";
 import { useCurrentLanguage } from "../hooks/useCurrentLanguage.js";
 
 type TranslationResource = Record<string, string>;

@@ -44,5 +44,5 @@ export {
   setLanguageChangePreparer,
   subscribeCurrentLanguage,
 } from "./lib/language.js";
-export { createLabels } from "./lib/labels.js";
-export type { LabelTranslator } from "./lib/labels.js";
+export { createLabels } from "./hooks/useLabels.js";
+export type { LabelTranslator } from "./hooks/useLabels.js";

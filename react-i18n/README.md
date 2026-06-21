@@ -20,8 +20,9 @@ startup, and language UI.
 ## Architecture
 
 - `src/lib`: language normalization, current-language store, strict i18next
-  setup, startup helpers, app binding, and label factory.
-- `src/hooks`: React subscriptions over the package language store.
+  setup, startup helpers, and app binding.
+- `src/hooks`: React subscriptions over the package language store and label
+  factory hooks.
 - `src/components`: shared UI that directly depends on the package language
   runtime.
 - `src/index.ts`: the only supported public export boundary.

@@ -3,15 +3,15 @@
  * execution, retry/reset, context patching, and progression workflow results.
  */
 
-import { act, renderHook, waitFor } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
-import type { WorkflowOperation } from '../types/workflow';
-import { createSkipOperation, createStepOperation } from '../lib/workflow';
+import { act, renderHook, waitFor } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import type { WorkflowOperation } from "../types/workflow";
+import { createSkipOperation, createStepOperation } from "../lib/workflow";
 import {
   resolveProgressionWorkflowProgressSafe,
   useWorkflowRuntime,
   useProgressionWorkflow,
-} from './workflow';
+} from "./useProgressionWorkflow";
 
 type TestFacts = {
   accountId: string;
@@ -32,8 +32,8 @@ type TestSharedContext = {
 
 function createFacts(overrides: Partial<TestFacts> = {}): TestFacts {
   return {
-    accountId: 'acc_1',
-    userId: 'uid_1',
+    accountId: "acc_1",
+    userId: "uid_1",
     ...overrides,
   };
 }
@@ -66,20 +66,20 @@ function createStepOperations(): WorkflowOperation<
 >[] {
   return [
     createStepOperation<TestFacts, TestRuntimeContext>({
-      operationId: 'flow/company',
-      checkerId: 'flow-checker',
-      blockId: 'company-name',
+      operationId: "flow/company",
+      checkerId: "flow-checker",
+      blockId: "company-name",
     }),
     createStepOperation<TestFacts, TestRuntimeContext>({
-      operationId: 'flow/application',
-      checkerId: 'flow-checker',
-      blockId: 'application-name',
+      operationId: "flow/application",
+      checkerId: "flow-checker",
+      blockId: "application-name",
     }),
   ];
 }
 
-describe('useWorkflowRuntime', () => {
-  it('compiles exactly once per facts key and recompiles when key changes', async () => {
+describe("useWorkflowRuntime", () => {
+  it("compiles exactly once per facts key and recompiles when key changes", async () => {
     const compilePlan = vi.fn(
       async (params: {
         facts: TestFacts;
@@ -114,7 +114,7 @@ describe('useWorkflowRuntime', () => {
       {
         initialProps: {
           facts: createFacts(),
-          factsKey: 'acc_1:uid_1',
+          factsKey: "acc_1:uid_1",
           runtimeContext: createRuntimeContext(),
         },
       },
@@ -123,14 +123,14 @@ describe('useWorkflowRuntime', () => {
     await waitFor(() => {
       expect(result.current.hasCompiledPlan).toBe(true);
       expect(result.current.operations).toHaveLength(2);
-      expect(result.current.activeBlock?.blockId).toBe('company-name');
+      expect(result.current.activeBlock?.blockId).toBe("company-name");
       expect(compilePlan).toHaveBeenCalledTimes(1);
     });
 
     rerender({
-      facts: createFacts({ accountId: 'acc_1' }),
-      factsKey: 'acc_1:uid_1',
-      runtimeContext: createRuntimeContext({ applicationId: 'app_cached' }),
+      facts: createFacts({ accountId: "acc_1" }),
+      factsKey: "acc_1:uid_1",
+      runtimeContext: createRuntimeContext({ applicationId: "app_cached" }),
     });
 
     await waitFor(() => {
@@ -139,9 +139,9 @@ describe('useWorkflowRuntime', () => {
     expect(compilePlan).toHaveBeenCalledTimes(1);
 
     rerender({
-      facts: createFacts({ userId: 'uid_2' }),
-      factsKey: 'acc_1:uid_2',
-      runtimeContext: createRuntimeContext({ applicationId: 'app_2' }),
+      facts: createFacts({ userId: "uid_2" }),
+      factsKey: "acc_1:uid_2",
+      runtimeContext: createRuntimeContext({ applicationId: "app_2" }),
     });
 
     await waitFor(() => {
@@ -151,7 +151,7 @@ describe('useWorkflowRuntime', () => {
     });
   });
 
-  it('auto-executes skip operations and goBack targets previous step only', async () => {
+  it("auto-executes skip operations and goBack targets previous step only", async () => {
     const skipRun = vi.fn(
       async (params: {
         context: TestRuntimeContext;
@@ -172,20 +172,20 @@ describe('useWorkflowRuntime', () => {
       }) => ({
         operations: [
           createStepOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/company',
-            checkerId: 'flow-checker',
-            blockId: 'company-name',
+            operationId: "flow/company",
+            checkerId: "flow-checker",
+            blockId: "company-name",
           }),
           createSkipOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/skip',
-            checkerId: 'flow-checker',
-            skipId: 'flow.skip',
+            operationId: "flow/skip",
+            checkerId: "flow-checker",
+            skipId: "flow.skip",
             run: skipRun,
           }),
           createStepOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/application',
-            checkerId: 'flow-checker',
-            blockId: 'application-name',
+            operationId: "flow/application",
+            checkerId: "flow-checker",
+            blockId: "application-name",
           }),
         ],
         context: params.context,
@@ -196,7 +196,7 @@ describe('useWorkflowRuntime', () => {
     const { result } = renderHook(() =>
       useWorkflowRuntime({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -204,7 +204,7 @@ describe('useWorkflowRuntime', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.activeBlock?.blockId).toBe('company-name');
+      expect(result.current.activeBlock?.blockId).toBe("company-name");
       expect(result.current.canGoBack).toBe(false);
     });
 
@@ -214,7 +214,7 @@ describe('useWorkflowRuntime', () => {
 
     await waitFor(() => {
       expect(skipRun).toHaveBeenCalledTimes(1);
-      expect(result.current.activeBlock?.blockId).toBe('application-name');
+      expect(result.current.activeBlock?.blockId).toBe("application-name");
       expect(result.current.resolvedRuntimeContext?.skipRuns).toBe(1);
       expect(result.current.canGoBack).toBe(true);
     });
@@ -224,12 +224,12 @@ describe('useWorkflowRuntime', () => {
     });
 
     await waitFor(() => {
-      expect(result.current.activeBlock?.blockId).toBe('company-name');
+      expect(result.current.activeBlock?.blockId).toBe("company-name");
       expect(result.current.canGoBack).toBe(false);
     });
   });
 
-  it('keeps canGoBack false when prior operations are only skips', async () => {
+  it("keeps canGoBack false when prior operations are only skips", async () => {
     const compilePlan = vi.fn(
       async (params: {
         runtimeContext: TestRuntimeContext;
@@ -237,15 +237,15 @@ describe('useWorkflowRuntime', () => {
       }) => ({
         operations: [
           createSkipOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/skip-start',
-            checkerId: 'flow-checker',
-            skipId: 'flow.skip.start',
+            operationId: "flow/skip-start",
+            checkerId: "flow-checker",
+            skipId: "flow.skip.start",
             run: async (skipParams) => skipParams.context,
           }),
           createStepOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/dkim',
-            checkerId: 'flow-checker',
-            blockId: 'dkim',
+            operationId: "flow/dkim",
+            checkerId: "flow-checker",
+            blockId: "dkim",
           }),
         ],
         context: params.context,
@@ -256,7 +256,7 @@ describe('useWorkflowRuntime', () => {
     const { result } = renderHook(() =>
       useWorkflowRuntime({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -264,12 +264,12 @@ describe('useWorkflowRuntime', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.activeBlock?.blockId).toBe('dkim');
+      expect(result.current.activeBlock?.blockId).toBe("dkim");
       expect(result.current.canGoBack).toBe(false);
     });
   });
 
-  it('patches runtime context and forwards patches to shared context mutator', async () => {
+  it("patches runtime context and forwards patches to shared context mutator", async () => {
     const patchContext = vi.fn(
       (params: {
         context: TestSharedContext;
@@ -296,7 +296,7 @@ describe('useWorkflowRuntime', () => {
     const { result } = renderHook(() =>
       useWorkflowRuntime({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -310,26 +310,26 @@ describe('useWorkflowRuntime', () => {
 
     act(() => {
       result.current.applyRuntimeContextPatch({
-        applicationId: 'app_99',
+        applicationId: "app_99",
         patched: true,
       });
     });
 
     await waitFor(() => {
       expect(result.current.resolvedRuntimeContext?.applicationId).toBe(
-        'app_99',
+        "app_99",
       );
       expect(result.current.resolvedRuntimeContext?.patched).toBe(true);
     });
     expect(patchContext).toHaveBeenCalledTimes(1);
   });
 
-  it('captures compile failures and keeps compile stage as the failure source', async () => {
+  it("captures compile failures and keeps compile stage as the failure source", async () => {
     const consoleErrorSpy = vi
-      .spyOn(console, 'error')
+      .spyOn(console, "error")
       .mockImplementation(() => {});
     const compilePlan = vi.fn(async () => {
-      throw new Error('Compile failed');
+      throw new Error("Compile failed");
     });
 
     const { rerender, result } = renderHook(
@@ -342,31 +342,31 @@ describe('useWorkflowRuntime', () => {
           compilePlan,
         }),
       {
-        initialProps: { factsKey: 'acc_1:uid_1' },
+        initialProps: { factsKey: "acc_1:uid_1" },
       },
     );
 
     await waitFor(() => {
-      expect(result.current.failure?.stage).toBe('compile');
+      expect(result.current.failure?.stage).toBe("compile");
       expect(result.current.failure?.operationId).toBeNull();
       expect(result.current.hasCompiledPlan).toBe(false);
     });
 
     expect(compilePlan).toHaveBeenCalledTimes(1);
-    rerender({ factsKey: 'acc_1:uid_1' });
+    rerender({ factsKey: "acc_1:uid_1" });
     expect(compilePlan).toHaveBeenCalledTimes(1);
 
     consoleErrorSpy.mockRestore();
   });
 
-  it('retries compile failures when retry is invoked', async () => {
+  it("retries compile failures when retry is invoked", async () => {
     const consoleErrorSpy = vi
-      .spyOn(console, 'error')
+      .spyOn(console, "error")
       .mockImplementation(() => {});
     const compilePlan = vi
       .fn()
       .mockImplementationOnce(async () => {
-        throw new Error('Compile failed once');
+        throw new Error("Compile failed once");
       })
       .mockImplementation(
         async (params: {
@@ -382,7 +382,7 @@ describe('useWorkflowRuntime', () => {
     const { result } = renderHook(() =>
       useWorkflowRuntime({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -390,7 +390,7 @@ describe('useWorkflowRuntime', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.failure?.stage).toBe('compile');
+      expect(result.current.failure?.stage).toBe("compile");
     });
     expect(compilePlan).toHaveBeenCalledTimes(1);
 
@@ -407,7 +407,7 @@ describe('useWorkflowRuntime', () => {
     consoleErrorSpy.mockRestore();
   });
 
-  it('resets and recompiles for the same facts key when resetPlan is called', async () => {
+  it("resets and recompiles for the same facts key when resetPlan is called", async () => {
     const compilePlan = vi.fn(
       async (params: {
         runtimeContext: TestRuntimeContext;
@@ -422,7 +422,7 @@ describe('useWorkflowRuntime', () => {
     const { result } = renderHook(() =>
       useWorkflowRuntime({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -447,12 +447,12 @@ describe('useWorkflowRuntime', () => {
     expect(compilePlan).toHaveBeenCalledTimes(2);
   });
 
-  it('captures skip failures once and prevents infinite retry loops', async () => {
+  it("captures skip failures once and prevents infinite retry loops", async () => {
     const consoleErrorSpy = vi
-      .spyOn(console, 'error')
+      .spyOn(console, "error")
       .mockImplementation(() => {});
     const skipRun = vi.fn(async () => {
-      throw new Error('Skip failed');
+      throw new Error("Skip failed");
     });
     const compilePlan = vi.fn(
       async (params: {
@@ -461,9 +461,9 @@ describe('useWorkflowRuntime', () => {
       }) => ({
         operations: [
           createSkipOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/failing-skip',
-            checkerId: 'flow-checker',
-            skipId: 'flow.failingSkip',
+            operationId: "flow/failing-skip",
+            checkerId: "flow-checker",
+            skipId: "flow.failingSkip",
             run: skipRun,
           }),
         ],
@@ -475,7 +475,7 @@ describe('useWorkflowRuntime', () => {
     const { result } = renderHook(() =>
       useWorkflowRuntime({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -483,8 +483,8 @@ describe('useWorkflowRuntime', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.failure?.stage).toBe('skip');
-      expect(result.current.failure?.operationId).toBe('flow/failing-skip');
+      expect(result.current.failure?.stage).toBe("skip");
+      expect(result.current.failure?.operationId).toBe("flow/failing-skip");
       expect(result.current.isExecutingSkip).toBe(false);
     });
 
@@ -495,15 +495,15 @@ describe('useWorkflowRuntime', () => {
     });
 
     await waitFor(() => {
-      expect(result.current.failure?.stage).toBe('skip');
+      expect(result.current.failure?.stage).toBe("skip");
       expect(skipRun).toHaveBeenCalledTimes(2);
     });
     consoleErrorSpy.mockRestore();
   });
 });
 
-describe('useProgressionWorkflow', () => {
-  it('keeps phase as loading until compile resolves', async () => {
+describe("useProgressionWorkflow", () => {
+  it("keeps phase as loading until compile resolves", async () => {
     let completeCompile:
       | ((value: {
           operations: WorkflowOperation<TestFacts, TestRuntimeContext>[];
@@ -525,7 +525,7 @@ describe('useProgressionWorkflow', () => {
     const { result } = renderHook(() =>
       useProgressionWorkflow({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -533,7 +533,7 @@ describe('useProgressionWorkflow', () => {
       }),
     );
 
-    expect(result.current.phase.kind).toBe('loading');
+    expect(result.current.phase.kind).toBe("loading");
     expect(result.current.progress).toBeNull();
 
     act(() => {
@@ -545,12 +545,12 @@ describe('useProgressionWorkflow', () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase.kind).toBe('step');
+      expect(result.current.phase.kind).toBe("step");
       expect(result.current.progress?.totalBlocks).toBe(2);
     });
   });
 
-  it('fails fast with a recoverable error when compile yields zero steps', async () => {
+  it("fails fast with a recoverable error when compile yields zero steps", async () => {
     const compilePlan = vi.fn(
       async (params: {
         runtimeContext: TestRuntimeContext;
@@ -565,25 +565,25 @@ describe('useProgressionWorkflow', () => {
     const { result } = renderHook(() =>
       useProgressionWorkflow({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
-        emptyPlanMessage: 'No progression workflow steps were produced.',
+        emptyPlanMessage: "No progression workflow steps were produced.",
       }),
     );
 
     await waitFor(() => {
       expect(result.current.phase).toEqual({
-        kind: 'error',
+        kind: "error",
         recoverable: true,
-        message: 'No progression workflow steps were produced.',
+        message: "No progression workflow steps were produced.",
       });
       expect(result.current.progress).toBeNull();
     });
   });
 
-  it('allows explicit empty-plan completion when requested', async () => {
+  it("allows explicit empty-plan completion when requested", async () => {
     const compilePlan = vi.fn(
       async (params: {
         runtimeContext: TestRuntimeContext;
@@ -598,7 +598,7 @@ describe('useProgressionWorkflow', () => {
     const { result } = renderHook(() =>
       useProgressionWorkflow({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -607,12 +607,12 @@ describe('useProgressionWorkflow', () => {
     );
 
     await waitFor(() => {
-      expect(result.current.phase.kind).toBe('complete');
+      expect(result.current.phase.kind).toBe("complete");
       expect(result.current.progress).toBeNull();
     });
   });
 
-  it('stays in loading phase while skip operations are executing', async () => {
+  it("stays in loading phase while skip operations are executing", async () => {
     let resolveSkipContext: ((value: TestRuntimeContext) => void) | null = null;
     const compilePlan = vi.fn(
       async (params: {
@@ -621,23 +621,23 @@ describe('useProgressionWorkflow', () => {
       }) => ({
         operations: [
           createStepOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/company',
-            checkerId: 'flow-checker',
-            blockId: 'company-name',
+            operationId: "flow/company",
+            checkerId: "flow-checker",
+            blockId: "company-name",
           }),
           createSkipOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/skip',
-            checkerId: 'flow-checker',
-            skipId: 'flow.skip',
+            operationId: "flow/skip",
+            checkerId: "flow-checker",
+            skipId: "flow.skip",
             run: () =>
               new Promise<TestRuntimeContext>((resolve) => {
                 resolveSkipContext = resolve;
               }),
           }),
           createStepOperation<TestFacts, TestRuntimeContext>({
-            operationId: 'flow/application',
-            checkerId: 'flow-checker',
-            blockId: 'application-name',
+            operationId: "flow/application",
+            checkerId: "flow-checker",
+            blockId: "application-name",
           }),
         ],
         context: params.context,
@@ -648,7 +648,7 @@ describe('useProgressionWorkflow', () => {
     const { result } = renderHook(() =>
       useProgressionWorkflow({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -658,8 +658,8 @@ describe('useProgressionWorkflow', () => {
 
     await waitFor(() => {
       expect(result.current.phase).toEqual({
-        kind: 'step',
-        stepId: 'company-name',
+        kind: "step",
+        stepId: "company-name",
       });
     });
 
@@ -668,7 +668,7 @@ describe('useProgressionWorkflow', () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase.kind).toBe('loading');
+      expect(result.current.phase.kind).toBe("loading");
     });
 
     act(() => {
@@ -680,13 +680,13 @@ describe('useProgressionWorkflow', () => {
 
     await waitFor(() => {
       expect(result.current.phase).toEqual({
-        kind: 'step',
-        stepId: 'application-name',
+        kind: "step",
+        stepId: "application-name",
       });
     });
   });
 
-  it('marks the progression workflow complete after advancing beyond the final step', async () => {
+  it("marks the progression workflow complete after advancing beyond the final step", async () => {
     const compilePlan = vi.fn(
       async (params: {
         runtimeContext: TestRuntimeContext;
@@ -701,7 +701,7 @@ describe('useProgressionWorkflow', () => {
     const { result } = renderHook(() =>
       useProgressionWorkflow({
         facts: createFacts(),
-        factsKey: 'acc_1:uid_1',
+        factsKey: "acc_1:uid_1",
         runtimeContext: createRuntimeContext(),
         createInitialContext: createSharedContext,
         compilePlan,
@@ -711,8 +711,8 @@ describe('useProgressionWorkflow', () => {
 
     await waitFor(() => {
       expect(result.current.phase).toEqual({
-        kind: 'step',
-        stepId: 'company-name',
+        kind: "step",
+        stepId: "company-name",
       });
     });
 
@@ -722,8 +722,8 @@ describe('useProgressionWorkflow', () => {
 
     await waitFor(() => {
       expect(result.current.phase).toEqual({
-        kind: 'step',
-        stepId: 'application-name',
+        kind: "step",
+        stepId: "application-name",
       });
     });
 
@@ -732,16 +732,16 @@ describe('useProgressionWorkflow', () => {
     });
 
     await waitFor(() => {
-      expect(result.current.phase.kind).toBe('complete');
+      expect(result.current.phase.kind).toBe("complete");
       expect(result.current.progress).toBeNull();
     });
   });
 
-  it('throws when the active progression step is missing from the fixed step list', () => {
+  it("throws when the active progression step is missing from the fixed step list", () => {
     expect(() =>
       resolveProgressionWorkflowProgressSafe({
-        phase: { kind: 'step', stepId: 'missing-step' },
-        stepIds: ['company-name', 'application-name'],
+        phase: { kind: "step", stepId: "missing-step" },
+        stepIds: ["company-name", "application-name"],
       }),
     ).toThrow('Workflow step "missing-step" is not in the fixed plan');
   });

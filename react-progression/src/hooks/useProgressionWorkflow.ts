@@ -4,37 +4,37 @@
  * without replanning the active workflow.
  */
 
-import { listRenderableWorkflowOps } from '../lib/workflow.js';
+import { listRenderableWorkflowOps } from "../lib/workflow.js";
 import type {
   WorkflowChecker,
   WorkflowOperation,
   WorkflowStepOperation,
-} from '../types/workflow.js';
+} from "../types/workflow.js";
 import {
   createWorkflowRuntimeMachine,
   resolvePreviousStepCursor,
   resolveWorkflowProgress,
   type WorkflowRuntimeState,
-} from '../lib/workflow-runtime.js';
+} from "../lib/workflow-runtime.js";
 import {
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useSyncExternalStore,
-} from 'react';
+} from "react";
 
 export type WorkflowPlanFailure = {
-  stage: 'compile' | 'skip';
+  stage: "compile" | "skip";
   operationId: string | null;
   error: Error;
 };
 
 export type ProgressionWorkflowPhase<StepId extends string> =
-  | { kind: 'loading' }
-  | { kind: 'step'; stepId: StepId }
-  | { kind: 'complete' }
-  | { kind: 'error'; recoverable: true; message: string };
+  | { kind: "loading" }
+  | { kind: "step"; stepId: StepId }
+  | { kind: "complete" }
+  | { kind: "error"; recoverable: true; message: string };
 
 export type ProgressionWorkflowProgress = {
   currentStepNumber: number;
@@ -105,7 +105,7 @@ type CompileWorkflowPlanFn<
 
 function toErrorSafe(error: unknown): Error {
   if (error instanceof Error) return error;
-  return new Error('Unknown workflow runtime error');
+  return new Error("Unknown workflow runtime error");
 }
 
 function freezeFacts<Facts extends Record<string, unknown>>(
@@ -249,7 +249,7 @@ export function useWorkflowRuntime<
           !resolvedRuntimeContext ||
           snapshot.failure ||
           snapshot.isExecutingSkip ||
-          activeOperation.kind !== 'skip'
+          activeOperation.kind !== "skip"
         ) {
           return;
         }
@@ -266,7 +266,7 @@ export function useWorkflowRuntime<
             facts: factsRef,
             context: resolvedRuntimeContext,
             operation: {
-              kind: 'skip',
+              kind: "skip",
               controls: {
                 onDone: () => {},
               },
@@ -302,7 +302,7 @@ export function useWorkflowRuntime<
             setSnapshot({
               ...snapshot,
               failure: {
-                stage: 'skip',
+                stage: "skip",
                 operationId: activeOperation.operationId,
                 error: resolvedError,
               },
@@ -371,7 +371,7 @@ export function useWorkflowRuntime<
             setSnapshot({
               ...snapshot,
               failure: {
-                stage: 'compile',
+                stage: "compile",
                 operationId: null,
                 error: resolvedError,
               },
@@ -412,7 +412,7 @@ export function useWorkflowRuntime<
           if (!machine) return;
           const currentCursor = machine.getState().cursor;
           const resolvedCursor =
-            typeof nextCursor === 'function'
+            typeof nextCursor === "function"
               ? nextCursor(currentCursor)
               : nextCursor;
           machine.setCursor(resolvedCursor);
@@ -483,17 +483,14 @@ export function useWorkflowRuntime<
     RuntimeContext,
     Requirement,
     BlockId
-  >[] = useMemo(
-    () => listRenderableWorkflowOps(operations),
-    [operations],
-  );
+  >[] = useMemo(() => listRenderableWorkflowOps(operations), [operations]);
   const activeOperation = operations[cursor] ?? null;
   const activeBlock: WorkflowStepOperation<
     Facts,
     RuntimeContext,
     Requirement,
     BlockId
-  > | null = activeOperation?.kind === 'step' ? activeOperation : null;
+  > | null = activeOperation?.kind === "step" ? activeOperation : null;
   const progress = useMemo(
     () => resolveWorkflowProgress({ cursor, total: operations.length }),
     [cursor, operations.length],
@@ -574,27 +571,27 @@ function resolveProgressionWorkflowPhase<StepId extends string>(params: {
   } = params;
   if (failure) {
     return {
-      kind: 'error',
+      kind: "error",
       recoverable: true,
-      message: failure.error.message || 'Workflow failed.',
+      message: failure.error.message || "Workflow failed.",
     };
   }
   if (!hasCompiledPlan || isExecutingSkip) {
-    return { kind: 'loading' };
+    return { kind: "loading" };
   }
   if (totalStepCount === 0) {
     return allowEmptyPlanComplete
-      ? { kind: 'complete' }
+      ? { kind: "complete" }
       : {
-          kind: 'error',
+          kind: "error",
           recoverable: true,
           message: emptyPlanMessage,
         };
   }
   if (activeStep) {
-    return { kind: 'step', stepId: activeStep };
+    return { kind: "step", stepId: activeStep };
   }
-  return { kind: 'complete' };
+  return { kind: "complete" };
 }
 
 /** @internal */
@@ -609,7 +606,7 @@ export function resolveProgressionWorkflowProgressSafe<
   percentComplete: number;
 } | null {
   const { phase, stepIds } = params;
-  if (phase.kind !== 'step') return null;
+  if (phase.kind !== "step") return null;
   const totalBlocks = stepIds.length;
   if (totalBlocks <= 0) return null;
 
@@ -692,7 +689,7 @@ export function useProgressionWorkflow<
         activeStep,
         allowEmptyPlanComplete: params.allowEmptyPlanComplete ?? false,
         emptyPlanMessage:
-          params.emptyPlanMessage ?? 'Workflow plan produced no steps.',
+          params.emptyPlanMessage ?? "Workflow plan produced no steps.",
       }),
     [
       runtime.failure,
@@ -706,7 +703,7 @@ export function useProgressionWorkflow<
   );
 
   const completionKey =
-    phase.kind === 'complete' && runtime.resolvedRuntimeContext
+    phase.kind === "complete" && runtime.resolvedRuntimeContext
       ? `${params.factsKey}:${runtime.resetVersion}`
       : null;
 
