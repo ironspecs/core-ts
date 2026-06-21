@@ -31,6 +31,7 @@ Common commands:
 - `bun run typecheck`
 - `bun run lint`
 - `bun run check:dependencies`
+- `scripts/assert-dts-match.sh <release-artifact-root> <current-repo-root>`
 
 Git hooks:
 
@@ -45,6 +46,18 @@ Public package API:
   hooks, types, fields, or `lib` are unsupported implementation details.
 - Anything intended for consumers must be re-exported from that package's
   `src/index.ts`.
+
+Release branch workflow:
+
+- Pushes to `release` run the `Release Artifact` workflow after the GitHub
+  `release` environment is approved.
+- That workflow builds the workspace packages and uploads a timestamped
+  `dist-YYYY-MM-DD-HH-MM` artifact containing each package `dist` directory.
+- The `dts-release-gate` CI job for `main` downloads the latest successful
+  `release` artifact and compares its generated `*.d.ts` files against the
+  current build.
+- Public declaration changes must be accepted through the `release` branch
+  before they can pass the `main` branch gate.
 
 The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with Bun `file:` overrides.
 Its official source lives in the GitHub `ironspecs/core-ts` repository.
