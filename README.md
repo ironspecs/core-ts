@@ -1,65 +1,40 @@
 # core-ts
 
-Sibling monorepo for new extracted core TypeScript modules that can be shared by projects outside `react-ts`.
+Shared TypeScript package workspace for reusable code extracted from application
+repositories.
 
-Current workspace modules:
+## Purpose
 
-- `react`
-- `react-i18n`
-- `react-progression`
-- `react-form-builder`
+- Own reusable TypeScript modules that can serve more than one consuming app.
+- Keep shared React, form, i18n, and progression primitives in stable packages.
+- Keep package API boundaries explicit so extracted code does not drift back
+  toward app-local ownership.
 
-Layout:
+## Ownership Boundaries
 
-- `react/src/components`
-- `react/src/hooks`
-- `react/src/types`
-- `react/src/lib`
-- `react-i18n/src/components`
-- `react-i18n/src/hooks`
-- `react-i18n/src/lib`
-- `react-progression/src/components`
-- `react-progression/src/hooks`
-- `react-progression/src/types`
-- `react-progression/src/lib`
+- This repo owns generic contracts, reusable runtime helpers, and package root
+  exports for the workspace packages.
+- Consuming apps own product policy, route behavior, persistence, labels,
+  translation catalogs, workflow names, and API calls.
+- Business decisions should move upward into apps unless a workspace package
+  truly owns the generic rule.
+- Low-level utility should move downward into the smallest package that can own
+  and test it honestly.
 
-Common commands:
+## Architecture
 
-- `bun install`
-- `bun run build`
-- `bun run test`
-- `bun run typecheck`
-- `bun run lint`
-- `bun run check:dependencies`
-- `scripts/assert-dts-match.sh <release-artifact-root> <current-repo-root>`
+- `react`: shared React primitives, hooks, helpers, and behavior bundles.
+- `react-i18n`: shared language, label, and i18next runtime bindings.
+- `react-progression`: generic workflow/progression planning and runtime UI.
+- `react-form-builder`: schema-driven form contracts, registry, and rendering.
+- Each workspace package exposes its package root as its supported public API.
 
-Git hooks:
+## Invariants
 
-- Run `git config core.hooksPath .githooks` after cloning to enable the
-  tracked commit and push hooks.
-- Commit and push hooks both run `./scripts/check-dependency-versions.sh`.
-
-Public package API:
-
-- Each workspace package exposes only its package root.
-- Deep imports into package internals, `dist`, `src`, component directories,
-  hooks, types, fields, or `lib` are unsupported implementation details.
-- Anything intended for consumers must be re-exported from that package's
-  `src/index.ts`.
-
-Release branch workflow:
-
-- Pushes to `release` run the `Release Artifact` workflow after the GitHub
-  `release` environment is approved.
-- That workflow builds the workspace packages and uploads a timestamped
-  `dist-YYYY-MM-DD-HH-MM` artifact containing each package `dist` directory.
-- The `quality` CI job runs build, lint, typecheck, tests, and package export
-  checks in one runner.
-- The `dts-release-gate` CI job for `main` downloads the latest successful
-  `release` artifact and compares its generated `*.d.ts` files against the
-  current build.
-- Public declaration changes must be accepted through the `release` branch
-  before they can pass the `main` branch gate.
-
-The `react` workspace builds standard distributable runtime and type artifacts into `react/dist`, and can be linked locally into `react-ts` with Bun `file:` overrides.
-Its official source lives in the GitHub `ironspecs/core-ts` repository.
+- Deep imports into `src`, `dist`, component folders, hooks, types, fields, or
+  `lib` are unsupported implementation details.
+- Public API changes are represented by generated declaration output and must
+  pass the repository declaration gate.
+- Shared packages must stay reusable across consuming repositories.
+- Package READMEs own multi-file package rules. TypeScript file comments own
+  single-file responsibilities and invariants.

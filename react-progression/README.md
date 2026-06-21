@@ -1,15 +1,21 @@
 # @core-ts/react-progression
 
-Generic React workflow and progression runtime extracted from the live `react-ts`
-workflow path.
+Generic React workflow and progression package for fixed plans, cursor movement,
+runtime context updates, and progression UI.
 
 ## Purpose
 
-- Own fixed workflow-plan compilation, cursor movement, progress derivation, and
-  explicit runtime-context updates.
-- Own the shared `Progression` step render shell and step component contract.
-- Keep business workflow names, step registries, facts, labels, API calls, and
-  route behavior in consuming apps.
+- Own reusable workflow-plan compilation, cursor movement, and progress
+  derivation.
+- Own explicit runtime-context update mechanics for progression flows.
+- Own the shared `Progression` render shell and step component contract.
+
+## Ownership Boundaries
+
+- This package owns generic progression and workflow runtime vocabulary.
+- Consuming apps own workflow names, step registries, facts, labels, API calls,
+  persistence, and route behavior.
+- Runtime helpers must not encode product-specific workflow policy.
 
 ## Architecture
 
@@ -18,28 +24,16 @@ workflow path.
 - `src/lib`: pure workflow planning, runtime, facts-key, runtime-slice, and log
   helpers.
 - `src/types`: public step and workflow contracts.
+- `src/index.ts`: the only supported public export boundary.
 
 ## Invariants
 
+- Import from `@core-ts/react-progression` only.
+- Deep imports into `src`, `dist`, components, hooks, types, or `lib` are
+  private implementation details.
 - A workflow plan is compiled once for a facts key and is immutable for that run.
 - Runtime context is the durable continuity channel across workflow movement.
 - Steps receive readonly facts and context snapshots.
 - Steps update runtime context only through explicit patches or operation
   results.
-- Runtime slices store plain `Record<string, unknown>` data. They do not
-  pretend a string slice id proves a narrower caller-selected generic type.
 - Skip operations execute automatically and are never back-navigation targets.
-- The package uses generic `Progression` and `Workflow` vocabulary only.
-
-## Public Surface
-
-Import from `@core-ts/react-progression` only. Deep imports into `dist`, `src`,
-components, hooks, types, or `lib` are private implementation details and are
-not supported API.
-
-Common commands:
-
-- `bun run build`
-- `bun run test`
-- `bun run typecheck`
-- `bun run lint`

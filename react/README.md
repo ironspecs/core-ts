@@ -1,27 +1,35 @@
 # @core-ts/react
 
-Shared React-focused core TypeScript package for code extracted from `react-ts`.
+Shared React package for reusable UI primitives, hooks, behavior components, and
+small runtime helpers.
 
-Current contents:
+## Purpose
 
-- Shared runtime helpers such as `cn`
-- Shared React UI primitives such as `Typography`
-- Shared behavior bundles such as destructive buttons, feature-gated buttons,
-  submit buttons, markdown, theme toggles, and feature flags
-- React type augmentation for `data-testid`
-- Source files under `src/`
-- Standard `tsc` build output under `dist/`
-- The package root is the only public entrypoint
+- Own React-focused code that is generic enough to reuse across consuming apps.
+- Own package-level React type augmentation needed by the shared components.
+- Keep shared UI and helper vocabulary available through one package root.
 
-Common commands:
+## Ownership Boundaries
 
-- `bun run build`
-- `bun run test`
-- `bun run typecheck`
-- `bun run lint`
+- This package owns generic React primitives, behavior bundles, hooks, and
+  mechanical helpers.
+- Consuming apps own product labels, route decisions, persistence, data fetching,
+  feature policy, and app-specific composition.
+- Helpers in `src/lib` must stay mechanical and testable.
 
-## Public Surface
+## Architecture
 
-Import from `@core-ts/react` only. Deep imports into `dist`, `src`,
-components, hooks, types, or `lib` are private implementation details and are
-not supported API.
+- `src/components`: reusable React components and behavior bundles.
+- `src/hooks`: shared React hooks with no app ownership assumptions.
+- `src/lib`: package-owned mechanical utilities.
+- `src/types`: package-level type augmentation.
+- `src/index.ts`: the only supported public export boundary.
+
+## Invariants
+
+- Import from `@core-ts/react` only.
+- Anything intended for consumers must be exported from `src/index.ts`.
+- Deep imports into `src`, `dist`, components, hooks, types, or `lib` are
+  private implementation details.
+- Components must not own app-specific data fetching, navigation, persistence,
+  or product policy.
