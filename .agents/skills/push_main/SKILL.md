@@ -23,6 +23,10 @@ git diff -- '*/dist/*.d.ts'
 git push -u origin HEAD
 gh pr create --repo ironspecs/core-ts --base main --head "$(git branch --show-current)"
 gh pr checks <number> --repo ironspecs/core-ts --watch --interval 10
+git fetch origin main "$(git branch --show-current)"
+git switch -C main origin/main
+git merge --ff-only <topic-branch>
+git push origin main
 ```
 
 ## Instructions
@@ -35,3 +39,4 @@ gh pr checks <number> --repo ironspecs/core-ts --watch --interval 10
 6. Push the branch.
 7. Open a PR to `main`.
 8. Verify `test` and `dts-release-gate` pass.
+9. Fast-forward `main` to the checked branch and push `main`.
