@@ -5,7 +5,7 @@
  */
 
 import { useMemo } from "react";
-import type { SupportedLanguage } from "./i18n.js";
+import type { SupportedLanguage } from "../lib/i18n.js";
 
 export type LabelTranslator = (
   key: string,

@@ -5,8 +5,8 @@
 
 import { renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { SupportedLanguage } from "./i18n.js";
-import { createLabels } from "./labels.js";
+import type { SupportedLanguage } from "../lib/i18n.js";
+import { createLabels } from "./useLabels.js";
 
 describe("createLabels", () => {
   function setup() {

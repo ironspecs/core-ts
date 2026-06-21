@@ -44,33 +44,30 @@ export type {
   WorkflowRuntimeState,
 } from "./lib/workflow-runtime.js";
 export {
-  assertRuntimeSliceData,
-  createEmptyRuntimeSlices,
-  EMPTY_RUNTIME_SLICES,
-  ensureRuntimeSlice,
-  getRuntimeSlicesSafe,
-  setRuntimeSliceData,
-} from "./lib/runtime-slices.js";
+  assertWorkflowContextValueData,
+  createEmptyWorkflowContextValues,
+  EMPTY_WORKFLOW_CONTEXT_VALUES,
+  ensureWorkflowContextValue,
+  getWorkflowContextValuesSafe,
+  setWorkflowContextValueData,
+} from "./lib/workflow-context-values.js";
 export type {
-  RuntimeSlice,
-  RuntimeSliceData,
-  RuntimeSlices,
-  SliceSetStateAction,
-} from "./lib/runtime-slices.js";
+  WorkflowContextValue,
+  WorkflowContextValueData,
+  WorkflowContextValues,
+  WorkflowContextValueSetAction,
+} from "./lib/workflow-context-values.js";
 export { deriveWorkflowFactsKey } from "./lib/workflow-key.js";
 export { deriveWorkflowLogEntries } from "./lib/workflow-log.js";
-export type {
-  WorkflowLogEntry,
-  WorkflowLogRule,
-} from "./lib/workflow-log.js";
+export type { WorkflowLogEntry, WorkflowLogRule } from "./lib/workflow-log.js";
 export {
   useProgressionWorkflow,
   useWorkflowRuntime,
-} from "./hooks/workflow.js";
+} from "./hooks/useProgressionWorkflow.js";
 export type {
   ProgressionWorkflowPhase,
   ProgressionWorkflowProgress,
   ProgressionWorkflowResult,
   WorkflowPlanFailure,
-} from "./hooks/workflow.js";
-export { useRuntimeSlice } from "./hooks/useRuntimeSlice.js";
+} from "./hooks/useProgressionWorkflow.js";
+export { useWorkflowContextValue } from "./hooks/useWorkflowContextValue.js";

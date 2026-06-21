@@ -14,9 +14,10 @@ workflow path.
 ## Architecture
 
 - `src/components`: React progression render components.
-- `src/hooks`: React workflow runtime adapters.
-- `src/lib`: pure workflow planning, runtime, facts-key, runtime-slice, and log
-  helpers.
+- `src/hooks`: React adapters for progression workflows and workflow draft
+  state.
+- `src/lib`: pure workflow planning, runtime, facts-key, workflow context value,
+  and log helpers.
 - `src/types`: public step and workflow contracts.
 
 ## Invariants

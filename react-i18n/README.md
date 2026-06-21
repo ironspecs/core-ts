@@ -10,9 +10,13 @@ Shared React i18n package extracted from the live `react-ts` i18next path.
 
 ## Architecture
 
-- `src/lib`: language normalization, current-language store, strict i18next setup, app i18n binding, startup helpers, and label factory.
-- `src/hooks`: React subscription hooks over the language store.
-- `src/components`: shared UI that directly depends on the package language runtime.
+- `src/lib`: language normalization, current-language store, strict i18next
+  setup, startup helpers, and app binding.
+- `src/hooks`: React subscriptions over the package language store and label
+  factory hooks.
+- `src/components`: shared UI that directly depends on the package language
+  runtime.
+- `src/index.ts`: the only supported public export boundary.
 
 ## Invariants
 

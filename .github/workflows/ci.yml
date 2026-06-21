@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  test:
+  quality:
     runs-on: ubuntu-latest
 
     steps:
@@ -129,7 +129,7 @@ jobs:
           } from '@core-ts/react-i18n';
           import {
             clampWorkflowCursor,
-            createEmptyRuntimeSlices,
+            createEmptyWorkflowContextValues,
             createStepOperation,
             type WorkflowOperation,
           } from '@core-ts/react-progression';
@@ -160,7 +160,7 @@ jobs:
             getTranslator: () => (key) => key,
           });
           const cursor: number = clampWorkflowCursor({ cursor: 2, size: 4 });
-          const slices = createEmptyRuntimeSlices();
+          const contextValues = createEmptyWorkflowContextValues();
           const operation: WorkflowOperation<Record<string, unknown>, Record<string, unknown>> =
             createStepOperation({
               operationId: 'step',
@@ -216,7 +216,7 @@ jobs:
           buildSparseMergePatchFromFinalForm({ values: {}, modified: {} });
           labels;
           cursor;
-          slices;
+          contextValues;
           operation;
           sectionShell;
           formProps;
@@ -237,13 +237,13 @@ jobs:
           // @ts-expect-error deep imports are not part of the public API
           import { getCurrentLanguage as privateGetCurrentLanguage } from '@core-ts/react-i18n/lib/language';
           // @ts-expect-error deep imports are not part of the public API
-          import { createLabels as privateCreateLabels } from '@core-ts/react-i18n/lib/labels';
+          import { createLabels as privateCreateLabels } from '@core-ts/react-i18n/hooks/useLabels';
           // @ts-expect-error deep imports are not part of the public API
           import { compileWorkflowPlan as privateCompileWorkflowPlan } from '@core-ts/react-progression/lib/workflow';
           // @ts-expect-error deep imports are not part of the public API
-          import { createEmptyRuntimeSlices as privateCreateEmptyRuntimeSlices } from '@core-ts/react-progression/lib/runtime-slices';
+          import { createEmptyWorkflowContextValues as privateCreateEmptyWorkflowContextValues } from '@core-ts/react-progression/lib/workflow-context-values';
           // @ts-expect-error deep imports are not part of the public API
-          import { useWorkflowRuntime as privateUseWorkflowRuntime } from '@core-ts/react-progression/hooks/workflow';
+          import { useWorkflowRuntime as privateUseWorkflowRuntime } from '@core-ts/react-progression/hooks/useProgressionWorkflow';
           // @ts-expect-error deep imports are not part of the public API
           import { SectionShell as privateSectionShell } from '@core-ts/react-form-builder/fields/sectionShell';
 
@@ -252,7 +252,7 @@ jobs:
           privateGetCurrentLanguage;
           privateCreateLabels;
           privateCompileWorkflowPlan;
-          privateCreateEmptyRuntimeSlices;
+          privateCreateEmptyWorkflowContextValues;
           privateUseWorkflowRuntime;
           privateSectionShell;
           EOF
@@ -297,10 +297,10 @@ jobs:
               '@core-ts/react/lib/objs',
               '@core-ts/react-i18n/lib/i18n',
               '@core-ts/react-i18n/lib/language',
-              '@core-ts/react-i18n/lib/labels',
+              '@core-ts/react-i18n/hooks/useLabels',
               '@core-ts/react-progression/lib/workflow',
-              '@core-ts/react-progression/lib/runtime-slices',
-              '@core-ts/react-progression/hooks/workflow',
+              '@core-ts/react-progression/lib/workflow-context-values',
+              '@core-ts/react-progression/hooks/useProgressionWorkflow',
               '@core-ts/react-form-builder/fields/sectionShell',
             ];
 
