@@ -51,6 +51,7 @@ Release branch workflow:
 
 - Pushes to `release` run the `Release Artifact` workflow after the GitHub
   `release` environment is approved.
+- Release branch updates should be made through reviewed pull requests.
 - That workflow builds the workspace packages and uploads a timestamped
   `dist-YYYY-MM-DD-HH-MM` artifact containing each package `dist` directory.
 - The `dts-release-gate` CI job for `main` downloads the latest successful
