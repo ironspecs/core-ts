@@ -317,6 +317,7 @@ jobs:
           node --test package.test.mjs
 
   dts-release-gate:
+    if: github.event_name == 'push' || github.base_ref == 'main'
     runs-on: ubuntu-latest
     permissions:
       actions: read
