@@ -53,6 +53,8 @@ Release branch workflow:
   `release` environment is approved.
 - That workflow builds the workspace packages and uploads a timestamped
   `dist-YYYY-MM-DD-HH-MM` artifact containing each package `dist` directory.
+- The `quality` CI job runs build, lint, typecheck, tests, and package export
+  checks in one runner.
 - The `dts-release-gate` CI job for `main` downloads the latest successful
   `release` artifact and compares its generated `*.d.ts` files against the
   current build.

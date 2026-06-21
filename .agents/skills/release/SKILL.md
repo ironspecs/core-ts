@@ -75,7 +75,7 @@ git push origin release
    - Try `git push origin HEAD:release`.
    - Confirm GitHub rejects the push with `GH013` when direct pushes are blocked.
    - Push the branch and create a PR to `release`.
-   - Wait for `test` and `dts-release-gate` to pass.
+   - Wait for `quality` and `dts-release-gate` to pass.
    - Confirm review is required before merge.
 
 4. Merge the approved release PR without squashing.
@@ -92,7 +92,7 @@ git push origin release
    - Confirm a non-expired `dist-YYYY-MM-DD-HH-MM` artifact exists.
 
 6. Verify `main` protection.
-   - Tell the user to require PRs and required checks `test` and `dts-release-gate` on `main`.
+   - Tell the user to require PRs and required checks `quality` and `dts-release-gate` on `main`.
    - Try a direct push to `main` and confirm it is blocked.
    - Open a mismatch PR that changes generated declarations and confirm `dts-release-gate` fails.
    - Open or update a match PR with declarations equal to the latest release artifact and confirm `dts-release-gate` passes.
