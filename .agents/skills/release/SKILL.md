@@ -9,6 +9,7 @@ description: Use for core-ts release/main branch gates and release artifact veri
 
 - Run `./scripts/github-login.sh` before any GitHub operation.
 - `release` requires PR approval, signed commits, and linear history.
+- `main` requires PR-based updates and must pass `dts-release-gate`.
 - Squash merges and merge commits are banned.
 - `gh pr merge` cannot satisfy the `release` rules. Do not use it.
 - Merge approved release PRs only with local `git merge --ff-only`, then push `release`.
