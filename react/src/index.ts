@@ -6,6 +6,8 @@
 
 import "./types/react-augmented.js";
 
+export type MainGateMismatchProbe = "main-gate-mismatch-probe";
+
 export { ErrorBoundary } from "./components/errors/ErrorBoundary.js";
 export type { ErrorBoundaryLabels } from "./components/errors/ErrorBoundary.js";
 export {
