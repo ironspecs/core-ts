@@ -8,9 +8,11 @@ import {
 } from "./feature-flags.js";
 
 const sessionStorageValues = new Map<string, string>();
+let reloadLocation: ReturnType<typeof vi.fn>;
 
 beforeEach(() => {
   sessionStorageValues.clear();
+  reloadLocation = vi.fn();
   Object.defineProperty(globalThis, "document", {
     configurable: true,
     value: {
@@ -22,7 +24,7 @@ beforeEach(() => {
     value: {
       location: {
         href: "http://localhost/",
-        reload: vi.fn(),
+        reload: reloadLocation,
       },
     },
   });
@@ -51,7 +53,7 @@ describe("feature-flags", () => {
     expect(document.cookie).toBe(
       "ff=%7B%22featureA%22%3A%22enabled%22%2C%22featureB%22%3A%22beta%22%7D; path=/",
     );
-    expect(window.location.reload).toHaveBeenCalled();
+    expect(reloadLocation).toHaveBeenCalled();
   });
 
   it("resolves feature flags from query parameters and updates the cookie", () => {
@@ -99,7 +101,7 @@ describe("feature-flags", () => {
     expect(document.cookie).toBe(
       "ff=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",
     );
-    expect(window.location.reload).toHaveBeenCalled();
+    expect(reloadLocation).toHaveBeenCalled();
   });
 
   it("prevents infinite reload loops with a guard", () => {
@@ -107,7 +109,7 @@ describe("feature-flags", () => {
 
     resetFeatureFlagsAndReload();
 
-    expect(window.location.reload).not.toHaveBeenCalled();
+    expect(reloadLocation).not.toHaveBeenCalled();
     expect(sessionStorageValues.get("ffReloadGuard")).toBeUndefined();
   });
 
@@ -120,7 +122,7 @@ describe("feature-flags", () => {
     expect(document.cookie).toBe(
       "ff=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",
     );
-    expect(window.location.reload).toHaveBeenCalled();
+    expect(reloadLocation).toHaveBeenCalled();
   });
 
   it("does nothing if no query parameter or cookie is present", () => {

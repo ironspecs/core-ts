@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "no-unused-vars": "error",
+    "import/no-duplicates": "error",
+    "no-barrel-file": "error",
+    "unbound-method": "error"
+  }
+}

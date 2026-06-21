@@ -6,3 +6,6 @@ cd "$repo_root"
 
 echo "[pre-push] ./scripts/check-dependency-versions.sh"
 ./scripts/check-dependency-versions.sh
+
+echo "[pre-push] bun run lint"
+bun run lint

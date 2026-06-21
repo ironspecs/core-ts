@@ -17,6 +17,7 @@ description: Use to push a checked branch into core-ts main.
 ```bash
 git status --short --branch
 bun run build
+bun run lint
 bun run test
 bun run typecheck
 git diff -- '*/dist/*.d.ts'
@@ -32,7 +33,7 @@ git push origin main
 ## Instructions
 
 1. Create or switch to a topic branch.
-2. Run build, test, and typecheck.
+2. Run build, lint, test, and typecheck.
 3. Check generated declaration diffs.
 4. If `*.d.ts` changed, stop and use `release`.
 5. Commit intended files only.

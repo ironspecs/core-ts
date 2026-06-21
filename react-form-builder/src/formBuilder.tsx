@@ -4,8 +4,7 @@ import arrayMutators from "final-form-arrays";
 import type { Field, FormSchema } from "./schema.js";
 import type { FormContext, Registry } from "./registryTypes.js";
 import { getIn, setIn, type DotPath, joinName } from "./dotPath.js";
-import { useMountEffect } from "@core-ts/react";
-import { cn } from "@core-ts/react";
+import { cn, useMountEffect } from "@core-ts/react";
 
 export type FinalFormModified = Record<DotPath, boolean | undefined>;
 

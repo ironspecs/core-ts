@@ -8,7 +8,6 @@ import { listRenderableWorkflowOps } from '../lib/workflow.js';
 import type {
   WorkflowChecker,
   WorkflowOperation,
-  WorkflowSkipOperation,
   WorkflowStepOperation,
 } from '../types/workflow.js';
 import {
@@ -479,12 +478,22 @@ export function useWorkflowRuntime<
   const operations = snapshot.runtimeState?.operations ?? [];
   const cursor = snapshot.runtimeState?.cursor ?? 0;
   const resolvedRuntimeContext = snapshot.runtimeState?.runtimeContext ?? null;
-  const blockOperations = useMemo(
+  const blockOperations: WorkflowStepOperation<
+    Facts,
+    RuntimeContext,
+    Requirement,
+    BlockId
+  >[] = useMemo(
     () => listRenderableWorkflowOps(operations),
     [operations],
   );
   const activeOperation = operations[cursor] ?? null;
-  const activeBlock = activeOperation?.kind === 'step' ? activeOperation : null;
+  const activeBlock: WorkflowStepOperation<
+    Facts,
+    RuntimeContext,
+    Requirement,
+    BlockId
+  > | null = activeOperation?.kind === 'step' ? activeOperation : null;
   const progress = useMemo(
     () => resolveWorkflowProgress({ cursor, total: operations.length }),
     [cursor, operations.length],
@@ -589,7 +598,9 @@ function resolveProgressionWorkflowPhase<StepId extends string>(params: {
 }
 
 /** @internal */
-export function resolveProgressionWorkflowProgressSafe<StepId extends string>(params: {
+export function resolveProgressionWorkflowProgressSafe<
+  StepId extends string,
+>(params: {
   phase: ProgressionWorkflowPhase<StepId>;
   stepIds: readonly StepId[];
 }): {

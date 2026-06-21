@@ -2,9 +2,8 @@
 // child field controls. Keep this component presentational; field state,
 // validation, and value ownership belong to callers.
 import { type HTMLAttributes, type ReactNode } from "react";
-import { cn } from "@core-ts/react";
+import { cn, Typography } from "@core-ts/react";
 import * as Label from "@radix-ui/react-label";
-import { Typography } from "@core-ts/react";
 
 export type FieldFrameProps = HTMLAttributes<HTMLDivElement> & {
   label?: string;

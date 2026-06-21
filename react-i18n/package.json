@@ -33,7 +33,7 @@
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
     "test": "vitest run",
-    "lint": "tsc --noEmit",
+    "lint": "oxlint --import-plugin -c ./.oxlintrc.json src --type-aware",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
