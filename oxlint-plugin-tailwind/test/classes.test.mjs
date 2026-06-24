@@ -1,6 +1,5 @@
 import { spawnSync } from "node:child_process";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -56,7 +55,7 @@ function runRuleOnSnippet(args) {
 
 function runRuleOnFiles(args) {
   const { files, policies } = args;
-  const tmpPath = mkdtempSync(path.join(tmpdir(), "tailwind-classes-"));
+  const tmpPath = mkdtempSync(path.join(packageRoot, ".tmp-tailwind-classes-"));
 
   try {
     const configPath = writeRuleConfig(tmpPath, policies);
