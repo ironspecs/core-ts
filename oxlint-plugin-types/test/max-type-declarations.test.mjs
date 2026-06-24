@@ -1,6 +1,5 @@
 import { spawnSync } from "node:child_process";
 import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -46,7 +45,9 @@ function writeRuleConfig(tmpPath, max) {
 
 function runRuleOnSnippet(args) {
   const { code, max } = args;
-  const tmpPath = mkdtempSync(path.join(tmpdir(), "max-type-declarations-"));
+  const tmpPath = mkdtempSync(
+    path.join(packageRoot, ".tmp-max-type-declarations-"),
+  );
 
   try {
     const configPath = writeRuleConfig(tmpPath, max);
