@@ -46,7 +46,7 @@ function writeRuleConfig(tmpPath, max) {
 function runRuleOnSnippet(args) {
   const { code, max } = args;
   const tmpPath = mkdtempSync(
-    path.join(packageRoot, ".tmp-max-type-declarations-"),
+    path.join(packageRoot, "tmp-max-type-declarations-"),
   );
 
   try {

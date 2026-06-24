@@ -55,7 +55,7 @@ function runRuleOnSnippet(args) {
 
 function runRuleOnFiles(args) {
   const { files, policies } = args;
-  const tmpPath = mkdtempSync(path.join(packageRoot, ".tmp-tailwind-classes-"));
+  const tmpPath = mkdtempSync(path.join(packageRoot, "tmp-tailwind-classes-"));
 
   try {
     const configPath = writeRuleConfig(tmpPath, policies);
