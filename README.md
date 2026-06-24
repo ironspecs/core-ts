@@ -78,6 +78,9 @@ Release branch workflow:
 - For public API or declaration changes, branch from `release`, open the pull
   request against `release`, merge it after approval, and wait for the release
   artifact workflow to complete successfully.
+- Merge approved release pull requests locally with `git merge --ff-only` from
+  the `release` branch, then push `release`. GitHub's merge buttons cannot
+  satisfy the signed-commit release rules.
 - After the release artifact exists, open or update the corresponding `main`
   pull request. The `main` DTS gate should then compare against the accepted
   release artifact instead of failing on unreleased declaration drift.
