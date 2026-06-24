@@ -17,7 +17,9 @@
     "react",
     "react-form-builder",
     "react-i18n",
-    "react-progression"
+    "react-progression",
+    "oxlint-plugin-tailwind",
+    "oxlint-plugin-types"
   ],
   "author": "Dane Stuckel",
   "license": "UNLICENSED",
