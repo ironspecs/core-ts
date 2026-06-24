@@ -1,0 +1,32 @@
+{
+  "name": "@core-ts/oxlint-plugin-types",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "./index.js",
+  "exports": {
+    ".": {
+      "require": "./index.js",
+      "default": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "oxlint-plugin-compat.js",
+    "rules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ironspecs/core-ts.git"
+  },
+  "scripts": {
+    "build": "node -c index.js && find rules -type f -name '*.js' -exec node -c {} \\;",
+    "test": "vitest run",
+    "lint": "bun run build",
+    "typecheck": "bun run build"
+  },
+  "devDependencies": {
+    "oxlint": "^1.35.0",
+    "vitest": "^4.1.9"
+  }
+}
