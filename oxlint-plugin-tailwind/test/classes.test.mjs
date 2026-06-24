@@ -74,4 +74,17 @@ describe("tailwind/classes", () => {
       'Tailwind class group backgroundColor allows 1 matches but has at least 2. Latest match: "bg-blue-500".',
     );
   });
+
+  it("counts text size utilities through the textSize policy", () => {
+    const { reports, visitors } = createRuleHarness({
+      textSize: { max: 1 },
+    });
+
+    visitors.JSXAttribute(createClassNameAttribute("text-sm"));
+    visitors.JSXAttribute(createClassNameAttribute("md:text-4xl"));
+
+    expect(reports.map((report) => report.message)).toContain(
+      'Tailwind class group textSize allows 1 matches but has at least 2. Latest match: "md:text-4xl".',
+    );
+  });
 });

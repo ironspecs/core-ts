@@ -74,6 +74,22 @@ const FIXED_BORDER_RADIUS_TOKENS = new Set([
   "rounded-3xl",
 ]);
 
+const TEXT_SIZE_TOKENS = new Set([
+  "text-xs",
+  "text-sm",
+  "text-base",
+  "text-lg",
+  "text-xl",
+  "text-2xl",
+  "text-3xl",
+  "text-4xl",
+  "text-5xl",
+  "text-6xl",
+  "text-7xl",
+  "text-8xl",
+  "text-9xl",
+]);
+
 const COLOR_UTILITY_PREFIXES = new Set([
   "bg",
   "border",
@@ -254,6 +270,14 @@ function isTextColorClass(classToken) {
   return hasColorPrefix(classToken, "text");
 }
 
+function isTextSizeClass(classToken) {
+  return (
+    TEXT_SIZE_TOKENS.has(classToken.core) ||
+    classToken.core.startsWith("text-[") ||
+    classToken.core.startsWith("text-(")
+  );
+}
+
 function isDaisyColorClass(classToken) {
   const parts = readColorParts(classToken.core);
   if (!parts) return false;
@@ -269,6 +293,7 @@ const tailwindClassGroups = {
   fixedBorderWidth: isFixedBorderWidthClass,
   important: isImportantClass,
   textColor: isTextColorClass,
+  textSize: isTextSizeClass,
 };
 
 module.exports = {
