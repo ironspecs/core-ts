@@ -86,3 +86,6 @@ repositories.
   current build.
 - Public declaration changes must be accepted through the `release` branch
   before they can pass the `main` branch gate.
+- After the release artifact exists, update the corresponding `main` pull
+  request. The `main` DTS gate should then compare against the accepted release
+  artifact instead of failing on unreleased declaration drift.
