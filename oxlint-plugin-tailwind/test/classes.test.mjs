@@ -17,6 +17,11 @@ const oxlintBinary = path.join(
 );
 
 function writeRuleConfig(tmpPath, policies) {
+  writeFileSync(
+    path.join(tmpPath, "plugin.cjs"),
+    `module.exports = require(${JSON.stringify(packageRoot)});\n`,
+  );
+
   const configPath = path.join(tmpPath, "oxlint.json");
   writeFileSync(
     configPath,
@@ -25,7 +30,7 @@ function writeRuleConfig(tmpPath, policies) {
         jsPlugins: [
           {
             name: "tailwind",
-            specifier: packageRoot,
+            specifier: "./plugin.cjs",
           },
         ],
         rules: {
@@ -71,7 +76,7 @@ function runRuleOnFiles(args) {
     );
 
     return {
-      output: `${result.stdout}${result.stderr}`,
+      output: `${result.stdout}${result.stderr}${result.error?.message ?? ""}`,
       status: result.status ?? 0,
     };
   } finally {
