@@ -61,5 +61,5 @@ small runtime helpers.
 - These primitives preserve a non-clearable Radix toggle-group behavior by
   ignoring the empty-string deselection event emitted when the selected item is
   clicked again.
-- The toggle buttons depend on the shared button-footprint classes from
-  `@core-ts/react/app.css`.
+- The toggle buttons keep their base visual contract as DaisyUI `btn join-item`
+  and layer only explicit selected and disabled state classes on top.

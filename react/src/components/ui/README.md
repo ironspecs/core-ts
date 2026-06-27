@@ -27,6 +27,9 @@ Shared presentational primitives for reusable app-facing React interfaces.
   stay colocated with the component API rather than leaking through markup.
 - Do not rely on DOM attribute selectors like `data-[state=on]` as the primary
   shared styling contract for exported primitives.
+- Keep the base class contract of exported primitives as small as possible and
+  let DaisyUI or the underlying primitive own default button/input styling
+  unless `@core-ts/react` truly owns a stronger reusable override.
 
 ## Invariants
 
@@ -38,4 +41,6 @@ Shared presentational primitives for reusable app-facing React interfaces.
 - When a primitive has visual state, the shared wrapper must own the mapping
   from component state to classes explicitly so consumers do not depend on
   incidental Radix or DOM attributes.
+- Do not freeze copied utility bundles into a primitive when the honest shared
+  base is smaller.
 - Public primitives in this directory must be exported from `react/src/index.ts`.

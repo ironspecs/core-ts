@@ -3,9 +3,9 @@
  * filter controls. This file preserves a non-clearable Radix toggle-group
  * contract, and it owns the explicit mapping from React-visible state such as
  * `selected` and `disabled` to shared button classes through `cva`. The local
- * invariant is that visual state is derived inside this wrapper, not through
- * DOM attribute selectors, so the shared styling contract stays explicit and
- * durable across consuming apps.
+ * invariant is that the base visual contract stays as small as `btn join-item`,
+ * with only explicit state classes layered on top, so the shared primitive
+ * does not fossilize accidental utility churn.
  */
 
 import { cva } from "class-variance-authority";
@@ -20,7 +20,7 @@ import {
 import { cn } from "../../lib/cn.js";
 
 const toggleButtonVariants = cva(
-  "btn join-item c-btn-min-h c-btn-min-w px-4 font-medium shadow-none",
+  "btn join-item",
   {
     variants: {
       selected: {
