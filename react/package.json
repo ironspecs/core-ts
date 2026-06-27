@@ -23,6 +23,7 @@
     "url": "git@github.com:ironspecs/core-ts.git"
   },
   "dependencies": {
+    "@radix-ui/react-toggle-group": "^1.1.13",
     "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-router": "^1.132.23",
     "class-variance-authority": "^0.7.1",
@@ -46,6 +47,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.1.15",
     "jsdom": "^25.0.1",
     "react-dom": "^19.1.1",

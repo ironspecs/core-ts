@@ -53,3 +53,13 @@ small runtime helpers.
 - `.c-btn-min-h` sets `min-height` to `var(--core-button-size)`.
 - Applying both classes gives an element a minimum square footprint equal to the
   shared default button size.
+
+## Shared UI Primitives
+
+- `ToggleButton` and `ToggleButtonGroup` own the shared single-select toggle
+  control contract for reusable views and filters.
+- These primitives preserve a non-clearable Radix toggle-group behavior by
+  ignoring the empty-string deselection event emitted when the selected item is
+  clicked again.
+- The toggle buttons depend on the shared button-footprint classes from
+  `@core-ts/react/app.css`.
