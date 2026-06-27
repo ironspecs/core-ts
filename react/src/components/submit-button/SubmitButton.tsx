@@ -1,9 +1,9 @@
 /**
  * Owns the shared visual submit button for single-transaction async work.
  * Button state controls disabled behavior and the busy/success presentation.
- * The label always stays in normal layout flow so busy and success overlays do
- * not resize the button.
  */
+
+// Local invariant: the label stays in layout flow so state icons do not resize the button.
 
 import {
   type ButtonHTMLAttributes,
