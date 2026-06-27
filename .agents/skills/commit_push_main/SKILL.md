@@ -1,9 +1,9 @@
 ---
-name: push_main
-description: Use to push a checked branch into core-ts main.
+name: commit_push_main
+description: Use when committing current core-ts changes and pushing them into main through the required PR and fast-forward flow.
 ---
 
-# Push Main
+# Commit Push Main
 
 ## Critical
 
