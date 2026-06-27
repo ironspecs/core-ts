@@ -1,8 +1,8 @@
 /**
  * Owns the behavior contract tests for the shared single-select toggle button
  * primitives. These tests ensure the shared wrapper preserves non-clearable
- * selection semantics and explicit visual-state class mapping for shared
- * button-footprint controls.
+ * selection semantics and explicit visual-state class mapping without adding
+ * base utility churn beyond the shared DaisyUI button contract.
  */
 
 import "@testing-library/jest-dom";
@@ -114,8 +114,24 @@ describe("ToggleButtonGroup", () => {
     expect(screen.getByTestId("direction-in")).toHaveClass(
       "btn",
       "join-item",
+    );
+  });
+
+  it("keeps the base button contract minimal", () => {
+    render(
+      <ToggleButtonGroup value="in" onValueChange={() => {}}>
+        <ToggleButton value="in" data-testid="direction-in">
+          In
+        </ToggleButton>
+      </ToggleButtonGroup>,
+    );
+
+    expect(screen.getByTestId("direction-in")).not.toHaveClass(
       "c-btn-min-h",
       "c-btn-min-w",
+      "px-4",
+      "font-medium",
+      "shadow-none",
     );
   });
 
