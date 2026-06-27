@@ -46,6 +46,11 @@ export type {
 } from "./components/feature-button/index.js";
 export { Heading } from "./components/ui/Heading.js";
 export type { HeadingElement, HeadingProps } from "./components/ui/Heading.js";
+export {
+  ToggleButton,
+  ToggleButtonGroup,
+} from "./components/ui/ToggleButtonGroup.js";
+export type { ToggleButtonGroupProps } from "./components/ui/ToggleButtonGroup.js";
 export { useMediaQuery } from "./hooks/useMediaQuery.js";
 export { useMountEffect } from "./hooks/useMountEffect.js";
 export { MarkdownBlock } from "./components/markdown/index.js";
