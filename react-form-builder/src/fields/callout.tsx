@@ -26,7 +26,7 @@ export function Callout(props: FieldComponentProps<CalloutField>) {
   return (
     <div
       className={cn(
-        "min-h-12 items-start gap-3 shadow-none",
+        "c-btn-min-h items-start gap-3 shadow-none",
         toneClasses[field.tone],
       )}
       role={resolveRole(field.tone)}

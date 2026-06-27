@@ -9,8 +9,12 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./app.css": "./dist/app.css"
   },
+  "sideEffects": [
+    "./dist/app.css"
+  ],
   "files": [
     "dist"
   ],
@@ -34,7 +38,7 @@
     "react": ">=19"
   },
   "scripts": {
-    "build": "tsc -b tsconfig.build.json",
+    "build": "tsc -b tsconfig.build.json && node ./scripts/copy-app-css.mjs",
     "test": "vitest run",
     "lint": "oxlint --import-plugin -c ./.oxlintrc.json src --type-aware",
     "typecheck": "tsc --noEmit"

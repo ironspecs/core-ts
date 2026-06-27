@@ -26,7 +26,7 @@ export function ProgressionBackButton(
       data-testid={dataTestId}
       type={type}
       className={cn(
-        'btn btn-ghost min-h-12 min-w-12 gap-2 px-3 shadow-none',
+        'btn btn-ghost c-btn-min-h c-btn-min-w gap-2 px-3 shadow-none',
         'transition-transform duration-150 ease-out',
         'hover:bg-base-200/70 hover:-translate-y-0.5 hover:shadow-sm',
         'focus-visible:ring-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',

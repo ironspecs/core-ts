@@ -73,7 +73,7 @@ export function LanguageSwitcher(props: LanguageSwitcherProps) {
       <DropdownMenu.Trigger asChild>
         <button
           type="button"
-          className="btn btn-ghost min-h-12 min-w-12 gap-2"
+          className="btn btn-ghost c-btn-min-h c-btn-min-w gap-2"
           aria-label={props.labels.selectLanguage}
         >
           <Globe className="h-5 w-5" />

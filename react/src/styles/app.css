@@ -1,0 +1,11 @@
+:where(:root, [data-theme]) {
+  --core-button-size: calc(var(--size-field, 0.25rem) * 10);
+}
+
+.c-btn-min-w {
+  min-width: var(--core-button-size);
+}
+
+.c-btn-min-h {
+  min-height: var(--core-button-size);
+}
