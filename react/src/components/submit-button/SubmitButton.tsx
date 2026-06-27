@@ -1,6 +1,8 @@
 /**
  * Owns the shared visual submit button for single-transaction async work.
  * Button state controls disabled behavior and the busy/success presentation.
+ * The label always stays in normal layout flow so busy and success overlays do
+ * not resize the button.
  */
 
 import {
@@ -49,6 +51,9 @@ export function SubmitButton(props: SubmitButtonProps) {
       {...rest}
     >
       <span className="relative inline-flex min-h-5 min-w-5 items-center justify-center text-nowrap">
+        <span className={cn((isBusy || isSuccess) && "opacity-0")}>
+          {children}
+        </span>
         <AnimatePresence mode="wait" initial={false}>
           {isBusy ? (
             <motion.span
@@ -57,7 +62,7 @@ export function SubmitButton(props: SubmitButtonProps) {
               animate={{ opacity: 1, rotate: 0, scale: 1 }}
               exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
               transition={{ duration: 0.2 }}
-              className="absolute"
+              className="absolute inset-0 flex items-center justify-center"
             >
               <Loader2 className="h-5 w-5 animate-spin" />
             </motion.span>
@@ -68,21 +73,11 @@ export function SubmitButton(props: SubmitButtonProps) {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.7 }}
               transition={{ duration: 0.2 }}
-              className="text-success absolute"
+              className="text-success absolute inset-0 flex items-center justify-center"
             >
               <Check className="h-5 w-5 stroke-[3]" />
             </motion.span>
-          ) : (
-            <motion.span
-              key="text"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-            >
-              {children}
-            </motion.span>
-          )}
+          ) : null}
         </AnimatePresence>
       </span>
     </button>

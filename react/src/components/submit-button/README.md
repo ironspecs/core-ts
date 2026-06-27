@@ -35,5 +35,7 @@ This package owns the shared submit transaction interaction.
 
 - `busy` disables the button and sets `aria-busy`.
 - `success` is terminal and disables the button.
+- Busy and success icons overlay the original label; the label remains in
+  layout flow so the button does not resize during state changes.
 - Failed actions return the state to `idle` and expose the error.
 - Repeated `runIfIdle` calls return `skipped` while busy or after success.

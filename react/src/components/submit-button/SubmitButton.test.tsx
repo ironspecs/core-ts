@@ -16,16 +16,18 @@ describe("SubmitButton", () => {
 
   it("renders busy as disabled with aria-busy true", () => {
     render(<SubmitButton state="busy">Save</SubmitButton>);
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("button", { name: "Save" });
     expect(button.hasAttribute("disabled")).toBe(true);
     expect(button.getAttribute("aria-busy")).toBe("true");
+    expect(button).toHaveTextContent("Save");
   });
 
   it("renders success as disabled terminal state", () => {
     render(<SubmitButton state="success">Save</SubmitButton>);
-    const button = screen.getByRole("button");
+    const button = screen.getByRole("button", { name: "Save" });
     expect(button.hasAttribute("disabled")).toBe(true);
     expect(button.getAttribute("aria-busy")).toBe("false");
+    expect(button).toHaveTextContent("Save");
   });
 
   it("accepts async onClick handlers", () => {
