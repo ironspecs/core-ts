@@ -118,7 +118,7 @@ export function FeatureButton(props: FeatureButtonProps) {
         type={type}
         className={cn(
           "btn",
-          toButtonVariantClass(variant),
+          isLocked ? null : toButtonVariantClass(variant),
           toButtonSizeClass(size),
           isDormant ? "btn-disabled" : null,
           isLocked ? "btn-locked" : null,
