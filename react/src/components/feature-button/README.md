@@ -42,3 +42,5 @@ This package owns the shared feature-gated action interaction.
 - Access-loading failures throw instead of being treated as locked access.
 - Enabled access runs `onEnabledClick`.
 - Locked access opens the locked dialog.
+- Locked access owns its visual state with `btn-locked` and does not layer the
+  requested enabled variant class underneath it.

@@ -65,6 +65,59 @@ function renderFeatureButton(
 }
 
 describe("FeatureButton", () => {
+  it("renders the primary variant when feature is enabled", async () => {
+    renderFeatureButton();
+
+    await waitFor(() =>
+      expect(screen.getByTestId("feature-button-trigger")).not.toBeDisabled(),
+    );
+
+    const trigger = screen.getByTestId("feature-button-trigger");
+    expect(trigger.className).toContain("btn-primary");
+    expect(trigger.className).not.toContain("btn-locked");
+  });
+
+  it("renders locked state without the primary variant", async () => {
+    renderFeatureButton({
+      fetchFeatures: vi.fn(async () => [
+        {
+          feature_key: "create-custom-emails",
+          value_text: "false",
+          value_int: 0,
+        },
+      ]),
+    });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("feature-button-trigger")).not.toBeDisabled(),
+    );
+
+    const trigger = screen.getByTestId("feature-button-trigger");
+    expect(trigger.className).toContain("btn-locked");
+    expect(trigger.className).not.toContain("btn-primary");
+  });
+
+  it("renders locked state without the configured variant", async () => {
+    renderFeatureButton({
+      variant: "outline",
+      fetchFeatures: vi.fn(async () => [
+        {
+          feature_key: "create-custom-emails",
+          value_text: "false",
+          value_int: 0,
+        },
+      ]),
+    });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("feature-button-trigger")).not.toBeDisabled(),
+    );
+
+    const trigger = screen.getByTestId("feature-button-trigger");
+    expect(trigger.className).toContain("btn-locked");
+    expect(trigger.className).not.toContain("btn-outline");
+  });
+
   it("clicks through when feature is enabled", async () => {
     const { onEnabledClick } = renderFeatureButton();
 
