@@ -19,7 +19,11 @@ jobs:
       - name: Assert checked commit includes release tip
         run: |
           git fetch origin release
-          scripts/assert-release-tip-in-head.sh origin/release HEAD
+          scripts/assert-git-ancestor.sh origin/release HEAD || {
+            echo "Main candidates must include the current release tip."
+            echo "Update the main candidate from current release, then push the candidate branch again."
+            exit 1
+          }
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2

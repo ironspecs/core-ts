@@ -74,6 +74,9 @@ repositories.
   generated declaration output.
 - Release branch updates must be made through reviewed pull requests targeting
   `release`.
+- Release pull requests must include the current `main` tip commit SHA. This
+  guarantees `main` can later accept the released candidate through signed,
+  linear history.
 - After approval, merge release pull requests locally from the `release` branch
   with `git merge --ff-only <approved-branch>`, then push `release`. GitHub's
   merge buttons cannot satisfy the signed-commit release rules.
@@ -86,6 +89,14 @@ repositories.
   generated `*.d.ts` files against the current build.
 - Commits to `main` must include the current `release` tip commit SHA; the
   `quality` job asserts that invariant before a `main` pull request can pass.
+- Both branch gates use `scripts/assert-git-ancestor.sh` with the same
+  predicate: the required branch tip must be an ancestor of the candidate
+  `HEAD`.
+
+  | Candidate | Required ancestor |
+  | --- | --- |
+  | `release` PR head | `origin/main` |
+  | `main` PR head | `origin/release` |
 - Public declaration changes must be accepted through the `release` branch
   before they can pass the `main` branch gate.
 - After the release artifact exists, update the corresponding `main` pull

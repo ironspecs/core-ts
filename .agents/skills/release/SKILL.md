@@ -9,6 +9,10 @@ description: Use for core-ts release/main branch gates and release artifact veri
 
 - Run `./scripts/github-login.sh` before any GitHub operation.
 - `release` requires PR approval, signed commits, and linear history.
+- Release PR heads must include the current `main` tip commit SHA.
+- The main and release gates both use `scripts/assert-git-ancestor.sh`: release
+  PR heads require `origin/main` as an ancestor, and main PR heads require
+  `origin/release` as an ancestor.
 - Squash merges and merge commits are banned.
 - `gh pr merge` cannot satisfy the `release` rules. Do not use it.
 - Merge approved release PRs only with local `git merge --ff-only`, then push `release`.
@@ -75,7 +79,9 @@ git push origin release
    - Try `git push origin HEAD:release`.
    - Confirm GitHub rejects the push with `GH013` when direct pushes are blocked.
    - Push the branch and create a PR to `release`.
-   - Wait for `quality` and `dts-release-gate` to pass.
+   - Wait for `quality` and `release-candidate-gate` to pass.
+   - Confirm `release-candidate-gate` requires the PR head to include the
+     current `main` tip.
    - Confirm review is required before merge.
 
 4. Merge the approved release PR without squashing.

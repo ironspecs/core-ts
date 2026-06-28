@@ -1,0 +1,25 @@
+name: Release Candidate Gate
+
+on:
+  pull_request:
+    branches:
+      - release
+
+jobs:
+  release-candidate-gate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Assert checked commit includes main tip
+        run: |
+          git fetch origin main
+          scripts/assert-git-ancestor.sh origin/main HEAD || {
+            echo "Release candidates must include the current main tip."
+            echo "Update the release candidate from current main, then push the candidate branch again."
+            exit 1
+          }
