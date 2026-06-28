@@ -4,6 +4,8 @@
  * the only helpers in this file that return absence instead of failing.
  */
 
+import type { InitOptions } from "i18next";
+
 type I18nInstance = {
   language: string;
   loadLanguages: (language: string | readonly string[]) => Promise<void>;
@@ -406,25 +408,9 @@ type StrictI18nInitParams = {
   defaultNS: string;
 };
 
-type StrictI18nInitOptions = {
-  fallbackLng: false;
-  supportedLngs: string[];
-  defaultNS: string;
-  ns: string[];
-  saveMissing: true;
-  missingKeyHandler: (
-    lngs: string | readonly string[],
-    ns: string,
-    key: string,
-  ) => void;
-  parseMissingKeyHandler: (key: string) => string;
-  returnNull: false;
-  returnEmptyString: false;
-};
-
 export function createStrictI18nInitOptions(
   params: StrictI18nInitParams,
-): StrictI18nInitOptions {
+): InitOptions {
   return {
     fallbackLng: false,
     supportedLngs: [...params.supportedLngs],
@@ -432,6 +418,7 @@ export function createStrictI18nInitOptions(
     ns: [...params.namespaces],
     returnNull: false,
     returnEmptyString: false,
+    showSupportNotice: false,
     saveMissing: true,
     missingKeyHandler: (lngs, ns, key) => {
       reportMissingTranslation({

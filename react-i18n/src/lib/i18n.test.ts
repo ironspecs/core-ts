@@ -108,6 +108,7 @@ describe("createStrictI18nInitOptions", () => {
     expect(options.saveMissing).toBe(true);
     expect(options.returnEmptyString).toBe(false);
     expect(options.returnNull).toBe(false);
+    expect(options.showSupportNotice).toBe(false);
   });
 });
 
