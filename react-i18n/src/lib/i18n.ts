@@ -420,6 +420,7 @@ type StrictI18nInitOptions = {
   parseMissingKeyHandler: (key: string) => string;
   returnNull: false;
   returnEmptyString: false;
+  showSupportNotice: false;
 };
 
 export function createStrictI18nInitOptions(
@@ -432,6 +433,7 @@ export function createStrictI18nInitOptions(
     ns: [...params.namespaces],
     returnNull: false,
     returnEmptyString: false,
+    showSupportNotice: false,
     saveMissing: true,
     missingKeyHandler: (lngs, ns, key) => {
       reportMissingTranslation({
