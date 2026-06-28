@@ -81,10 +81,11 @@ repositories.
   `release` environment is approved.
 - That workflow builds the workspace packages and uploads a timestamped
   `dist-YYYY-MM-DD-HH-MM` artifact containing each package `dist` directory.
-- The `dts-release-gate` CI job for `main` downloads the latest successful
-  `release` artifact, asserts the checked `main` result includes the `release`
-  tip commit SHA, and compares its generated `*.d.ts` files against the current
-  build.
+- The `dts-release-gate` workflow runs only for pull requests targeting `main`;
+  it downloads the latest successful `release` artifact and compares its
+  generated `*.d.ts` files against the current build.
+- Commits to `main` must include the current `release` tip commit SHA; the
+  `quality` job asserts that invariant before a `main` pull request can pass.
 - Public declaration changes must be accepted through the `release` branch
   before they can pass the `main` branch gate.
 - After the release artifact exists, update the corresponding `main` pull
