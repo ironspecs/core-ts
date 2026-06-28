@@ -108,7 +108,9 @@ export function LanguageSwitcher(props: LanguageSwitcherProps) {
                     <DropdownMenu.ItemIndicator className="absolute left-2 inline-flex h-4 w-4 items-center justify-center">
                       <CheckIcon className="h-4 w-4" />
                     </DropdownMenu.ItemIndicator>
-                    <Typography variant="body">{lang.name}</Typography>
+                    <Typography variant="body" className="ml-2">
+                      {lang.name}
+                    </Typography>
                   </DropdownMenu.RadioItem>
                 ))}
               </DropdownMenu.RadioGroup>
