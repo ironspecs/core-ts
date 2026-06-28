@@ -97,6 +97,9 @@ repositories.
   | --- | --- |
   | `release` PR head | `origin/main` |
   | `main` PR head | `origin/release` |
+- Update a stale candidate by rebasing or rebuilding it from the required
+  branch tip before pushing it again. Do not merge protected branches into a
+  candidate just to satisfy the ancestry gate.
 - Public declaration changes must be accepted through the `release` branch
   before they can pass the `main` branch gate.
 - After the release artifact exists, update the corresponding `main` pull

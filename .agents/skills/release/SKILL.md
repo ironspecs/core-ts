@@ -13,6 +13,9 @@ description: Use for core-ts release/main branch gates and release artifact veri
 - The main and release gates both use `scripts/assert-git-ancestor.sh`: release
   PR heads require `origin/main` as an ancestor, and main PR heads require
   `origin/release` as an ancestor.
+- If a release candidate is stale, rebuild it from current `main` before
+  pushing it again. Do not merge protected branches into the candidate just to
+  satisfy the gate.
 - Squash merges and merge commits are banned.
 - `gh pr merge` cannot satisfy the `release` rules. Do not use it.
 - Merge approved release PRs only with local `git merge --ff-only`, then push `release`.
