@@ -53,6 +53,21 @@ export {
 export type { ToggleButtonGroupProps } from "./components/ui/ToggleButtonGroup.js";
 export { useMediaQuery } from "./hooks/useMediaQuery.js";
 export { useMountEffect } from "./hooks/useMountEffect.js";
+export {
+  DrawerContent,
+  DrawerTargetPane,
+  SlidingDrawer,
+  useDrawerController,
+} from "./drawer/index.js";
+export type {
+  DrawerContentProps,
+  DrawerPaneRatio,
+  DrawerTargetPaneProps,
+  SlidingDrawerLabels,
+  SlidingDrawerProps,
+  UseDrawerControllerParams,
+  UseDrawerControllerResult,
+} from "./drawer/index.js";
 export { MarkdownBlock } from "./components/markdown/index.js";
 export type { MarkdownBlockProps } from "./components/markdown/index.js";
 export {
