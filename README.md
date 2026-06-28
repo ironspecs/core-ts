@@ -87,8 +87,9 @@ repositories.
 - The `dts-release-gate` workflow runs only for pull requests targeting `main`;
   it downloads the latest successful `release` artifact and compares its
   generated `*.d.ts` files against the current build.
-- Commits to `main` must include the current `release` tip commit SHA; the
-  `quality` job asserts that invariant before a `main` pull request can pass.
+- Pull requests targeting `main` must include the current `release` tip commit
+  SHA; the `quality` job asserts that invariant before a `main` pull request
+  can pass.
 - Both branch gates use `scripts/assert-git-ancestor.sh` with the same
   predicate: the required branch tip must be an ancestor of the candidate
   `HEAD`.
