@@ -39,4 +39,20 @@ describe("MarkdownBlock", () => {
       "noreferrer",
     );
   });
+
+  it("renders inline and fenced code", () => {
+    render(
+      <MarkdownBlock
+        markdown={"Use `bun test`.\n\n```ts\nconst ok = true;\n```"}
+      />,
+    );
+
+    expect(screen.getByText("bun test")).toHaveClass("rounded-field", "px-1");
+    expect(screen.getByText("const ok = true;")).toHaveClass("language-ts");
+    expect(screen.getByText("const ok = true;").closest("pre")).toHaveClass(
+      "rounded-box",
+      "overflow-auto",
+      "p-3",
+    );
+  });
 });
