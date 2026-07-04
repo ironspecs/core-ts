@@ -1,3 +1,22 @@
+/**
+ * app.css — package-owned shared styling contracts for @core-ts/react.
+ *
+ * What this file owns:
+ *   - CSS classes that depend on the consuming app's Tailwind and DaisyUI
+ *     variable contract, but that must be available to all shared components
+ *     regardless of which app imports them.
+ *
+ * Local rules:
+ *   - Every class here MUST resolve solely from DaisyUI/Tailwind theme
+ *     variables. No hard-coded pixels, colors, or radii — the values must
+ *     track whatever theme the consuming app has selected.
+ *   - This stylesheet is imported once per app via `@core-ts/react/app.css`
+ *     (see each app's runtime entrypoint). Do not pipe it through an app's
+ *     Tailwind source CSS.
+ *   - Keep this file in sync with the "Public Styling Contract" section of
+ *     this module's README: any new class must be documented there too.
+ */
+
 :where(:root, [data-theme]) {
   --core-button-size: calc(var(--size-field, 0.25rem) * 10);
 }
@@ -8,4 +27,24 @@
 
 .c-btn-min-h {
   min-height: var(--core-button-size);
+}
+
+/**
+ * `.c-input-border` reproduces the border treatment of daisyUI's `.input`
+ * component using only theme variables, so a non-<input> element (e.g. a
+ * read-only list) can visually match real input fields in the same form.
+ *
+ * `.input` derives its border color from a PRIVATE local `--input-color`
+ * (`color-mix(in oklab, var(--color-base-content) 20%, #0000)`); that token is
+ * not global, so this class re-derives it identically. Width, radius, and the
+ * `--depth` inset bevel are all global DaisyUI theme tokens.
+ */
+.c-input-border {
+  border: var(--border) solid;
+  border-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+  border-radius: var(--radius-field);
+  box-shadow:
+    0 1px color-mix(in oklab, var(--color-base-content) 20%, #0000)
+      calc(var(--depth) * 10%) inset,
+    0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
 }

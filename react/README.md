@@ -53,6 +53,12 @@ small runtime helpers.
 - `.c-btn-min-h` sets `min-height` to `var(--core-button-size)`.
 - Applying both classes gives an element a minimum square footprint equal to the
   shared default button size.
+- `.c-input-border` reproduces the border treatment of DaisyUI's `.input`
+  (width, radius, color, and `--depth` inset bevel) using only theme variables,
+  so non-`<input>` elements such as read-only lists can visually match real
+  input fields in the same form. `--input-color` is a private local variable of
+  `.input`, not a global token, so the class re-derives it identically as
+  `color-mix(in oklab, var(--color-base-content) 20%, #0000)`.
 
 ## Shared UI Primitives
 
