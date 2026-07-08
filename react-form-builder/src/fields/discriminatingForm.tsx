@@ -165,7 +165,7 @@ export function DiscriminatingForm(
           onValueChange={setVariant}
           disabled={field.disabled}
         >
-          <Select.Trigger className="select select-bordered flex w-full items-center justify-between">
+          <Select.Trigger className="select select-bordered bg-input flex w-full items-center justify-between">
             <Select.Value placeholder={field.placeholder} />
             <Select.Icon className="opacity-70">▾</Select.Icon>
           </Select.Trigger>
