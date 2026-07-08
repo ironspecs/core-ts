@@ -66,7 +66,7 @@ export function Tags(props: FieldComponentProps<TagsField>) {
           ) : (
             <div>
               <Typography variant="body" muted>
-                {context.fieldLabels?.noEntries}
+                {context.labels?.noEntries}
               </Typography>
             </div>
           )}
@@ -74,7 +74,7 @@ export function Tags(props: FieldComponentProps<TagsField>) {
 
         <div className="flex gap-2">
           <input
-            className="input input-bordered w-full"
+            className="input input-bordered bg-input w-full"
             disabled={field.disabled}
             value={draft}
             placeholder={field.placeholder}
@@ -92,7 +92,7 @@ export function Tags(props: FieldComponentProps<TagsField>) {
             disabled={field.disabled}
             onClick={addFromDraft}
           >
-            {context.fieldLabels?.add}
+            {context.labels?.add}
           </button>
         </div>
       </div>

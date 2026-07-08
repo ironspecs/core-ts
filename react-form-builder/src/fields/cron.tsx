@@ -18,7 +18,7 @@ export function Cron(props: FieldComponentProps<CronField>) {
     >
       <div className="space-y-2">
         <select
-          className="select select-bordered w-full whitespace-nowrap"
+          className="select select-bordered bg-input w-full whitespace-nowrap"
           disabled={field.disabled}
           value={presets.some((p) => p.value === v) ? v : ""}
           onChange={(e) => input.onChange(e.target.value)}
@@ -34,7 +34,7 @@ export function Cron(props: FieldComponentProps<CronField>) {
         </select>
 
         <input
-          className="input input-bordered w-full font-mono text-sm"
+          className="input input-bordered bg-input w-full font-mono text-sm"
           disabled={field.disabled}
           value={v}
           onChange={(e) => input.onChange(e.target.value)}

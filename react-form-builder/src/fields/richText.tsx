@@ -14,7 +14,7 @@ export function RichText(props: FieldComponentProps<RichTextField>) {
       description={field.description}
     >
       <textarea
-        className="textarea textarea-bordered min-h-32 w-full"
+        className="textarea textarea-bordered bg-input min-h-32 w-full"
         disabled={field.disabled}
         value={typeof input.value === "string" ? input.value : ""}
         onChange={(e) => input.onChange(e.target.value)}

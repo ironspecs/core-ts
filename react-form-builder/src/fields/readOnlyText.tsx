@@ -29,7 +29,7 @@ export function ReadOnlyText(props: FieldComponentProps<ReadOnlyTextField>) {
     >
       <div
         className={[
-          "input input-bordered flex w-full items-center",
+          "input input-bordered bg-input flex w-full items-center",
           "opacity-80",
           field.monospace ? "font-mono text-xs" : "",
         ].join(" ")}

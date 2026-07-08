@@ -31,7 +31,7 @@ export function NumberInput(props: FieldComponentProps<NumberField>) {
       error={showErr ? err : undefined}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="number"
         disabled={field.disabled}
         value={value}

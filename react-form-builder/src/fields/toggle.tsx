@@ -17,7 +17,7 @@ export function Toggle(props: FieldComponentProps<ToggleField>) {
       <label className="label cursor-pointer justify-start gap-3">
         <input
           type="checkbox"
-          className="toggle"
+          className="toggle bg-input"
           disabled={field.disabled}
           checked={checked}
           onChange={(e) => input.onChange(e.target.checked)}

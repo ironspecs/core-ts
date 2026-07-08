@@ -35,7 +35,7 @@ export function Duration(props: FieldComponentProps<DurationField>) {
     >
       <div className="join w-full">
         <input
-          className="input input-bordered join-item w-full"
+          className="input input-bordered bg-input join-item w-full"
           type="number"
           disabled={field.disabled}
           value={shown}
@@ -47,7 +47,7 @@ export function Duration(props: FieldComponentProps<DurationField>) {
           }}
         />
         <select
-          className="select select-bordered join-item whitespace-nowrap"
+          className="select select-bordered bg-input join-item whitespace-nowrap"
           disabled={field.disabled}
           value={unit}
           onChange={(e) => setUnit(e.target.value as (typeof units)[number])}

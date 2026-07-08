@@ -17,7 +17,7 @@ export function TimeInput(props: FieldComponentProps<TimeField>) {
       description={field.description}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="time"
         disabled={field.disabled}
         value={v}

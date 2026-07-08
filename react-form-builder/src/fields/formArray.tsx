@@ -27,14 +27,14 @@ export function FormArray(props: FieldComponentProps<FormArrayField>) {
               disabled={field.disabled}
               onClick={() => fields.push({})}
             >
-              {context.fieldLabels?.add}
+              {context.labels?.add}
             </button>
           </div>
 
           {fields.length === 0 ? (
             <div>
               <Typography variant="body" muted>
-                {context.fieldLabels?.noEntries}
+                {context.labels?.noEntries}
               </Typography>
             </div>
           ) : null}

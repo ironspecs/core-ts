@@ -56,7 +56,7 @@ export function FeatureChecklist(
               <span className={CHECK_SLOT_CLASS}>
                 <input
                   type="checkbox"
-                  className="checkbox"
+                  className="checkbox bg-input"
                   disabled={disabled}
                   checked={checked}
                   onChange={(e) => toggleFeature(opt.value, e.target.checked)}

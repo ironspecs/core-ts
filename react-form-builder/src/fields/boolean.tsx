@@ -18,7 +18,7 @@ export function BooleanCheckbox(props: FieldComponentProps<BooleanField>) {
       <span className="mx-4 inline-block">
         <input
           type="checkbox"
-          className="checkbox"
+          className="checkbox bg-input"
           disabled={field.disabled}
           checked={checked}
           onChange={(e) => input.onChange(e.target.checked)}

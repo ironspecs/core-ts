@@ -54,7 +54,7 @@ export function FileUpload(props: FieldComponentProps<FileUploadField>) {
           <input
             key={inputKey}
             ref={inputRef}
-            className="file-input file-input-bordered w-full"
+            className="file-input file-input-bordered bg-input w-full"
             type="file"
             disabled={field.disabled}
             onChange={(e) => input.onChange(e.target.files?.[0] ?? null)}

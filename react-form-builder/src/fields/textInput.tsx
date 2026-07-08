@@ -33,7 +33,7 @@ export function TextInput(props: TextInputProps) {
       error={showError ? err : undefined}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="text"
         data-testid={field["data-testid"]}
         disabled={field.disabled}

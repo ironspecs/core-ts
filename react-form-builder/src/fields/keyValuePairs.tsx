@@ -70,7 +70,7 @@ export function KeyValuePairs(props: FieldComponentProps<KeyValuePairsField>) {
                     </td>
                     <td>
                       <input
-                        className="input input-bordered input-sm w-full"
+                        className="input input-bordered bg-input input-sm w-full"
                         disabled={field.disabled}
                         value={val}
                         onChange={(e) => update(key, e.target.value)}
@@ -92,7 +92,7 @@ export function KeyValuePairs(props: FieldComponentProps<KeyValuePairsField>) {
                 <tr>
                   <td colSpan={3}>
                     <Typography variant="body" muted>
-                      {context.fieldLabels?.noEntries}
+                      {context.labels?.noEntries}
                     </Typography>
                   </td>
                 </tr>
@@ -103,14 +103,14 @@ export function KeyValuePairs(props: FieldComponentProps<KeyValuePairsField>) {
 
         <div className="flex gap-2">
           <input
-            className="input input-bordered w-56"
+            className="input input-bordered bg-input w-56"
             disabled={field.disabled}
             value={k}
             onChange={(e) => setK(e.target.value)}
             placeholder={field.keyPlaceholder}
           />
           <input
-            className="input input-bordered w-full"
+            className="input input-bordered bg-input w-full"
             disabled={field.disabled}
             value={v}
             onChange={(e) => setV(e.target.value)}
@@ -122,7 +122,7 @@ export function KeyValuePairs(props: FieldComponentProps<KeyValuePairsField>) {
             disabled={field.disabled}
             onClick={add}
           >
-            {context.fieldLabels?.add}
+            {context.labels?.add}
           </button>
         </div>
       </div>

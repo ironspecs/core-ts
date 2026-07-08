@@ -14,7 +14,7 @@ export function PhoneNumber(props: FieldComponentProps<PhoneNumberField>) {
       description={field.description}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="tel"
         disabled={field.disabled}
         value={typeof input.value === "string" ? input.value : ""}

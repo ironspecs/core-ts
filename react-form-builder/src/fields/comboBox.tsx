@@ -42,7 +42,7 @@ export function ComboBox(props: FieldComponentProps<ComboBoxField>) {
         <Popover.Portal>
           <Popover.Content className="bg-base-100 border-base-300 rounded-box z-50 w-80 border-(length:--border) p-2 shadow">
             <input
-              className="input input-bordered w-full"
+              className="input input-bordered bg-input w-full"
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={field.searchPlaceholder}
@@ -64,7 +64,7 @@ export function ComboBox(props: FieldComponentProps<ComboBoxField>) {
               {!filtered.length ? (
                 <div className="px-2 py-2">
                   <Typography variant="body" muted>
-                    {context.fieldLabels?.noResults}
+                    {context.labels?.noResults}
                   </Typography>
                 </div>
               ) : null}

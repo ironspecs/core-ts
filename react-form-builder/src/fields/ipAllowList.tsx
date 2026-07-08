@@ -59,7 +59,7 @@ export function IpAllowList(props: FieldComponentProps<IpAllowListField>) {
       <div className="space-y-2">
         <div className="flex gap-2">
           <input
-            className="input input-bordered w-full"
+            className="input input-bordered bg-input w-full"
             disabled={field.disabled}
             value={draft}
             placeholder={field.placeholder}
@@ -77,7 +77,7 @@ export function IpAllowList(props: FieldComponentProps<IpAllowListField>) {
             disabled={field.disabled}
             onClick={add}
           >
-            {context.fieldLabels?.add}
+            {context.labels?.add}
           </button>
         </div>
 
@@ -99,7 +99,7 @@ export function IpAllowList(props: FieldComponentProps<IpAllowListField>) {
           ) : (
             <div>
               <Typography variant="body" muted>
-                {context.fieldLabels?.noEntries}
+                {context.labels?.noEntries}
               </Typography>
             </div>
           )}

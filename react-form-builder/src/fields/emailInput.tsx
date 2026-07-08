@@ -26,7 +26,7 @@ export function EmailInput(props: FieldComponentProps<EmailInputField>) {
       error={showErr ? err : undefined}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="email"
         disabled={field.disabled}
         value={typeof input.value === "string" ? input.value : ""}

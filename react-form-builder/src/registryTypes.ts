@@ -19,7 +19,7 @@ export type FormContext = {
     sourceId: string;
     query: string;
   }) => Promise<{ label: string; value: string }[]>;
-  fieldLabels?: FormFieldLabels;
+  labels?: FormFieldLabels;
   [key: string]: unknown;
 };
 

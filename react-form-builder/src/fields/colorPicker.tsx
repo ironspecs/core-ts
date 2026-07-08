@@ -18,7 +18,7 @@ export function ColorPicker(props: FieldComponentProps<ColorPickerField>) {
     >
       <div className="flex items-center gap-3">
         <input
-          className="input input-bordered w-full"
+          className="input input-bordered bg-input w-full"
           disabled={field.disabled}
           value={typeof input.value === "string" ? input.value : ""}
           onChange={(e) => input.onChange(e.target.value)}

@@ -28,7 +28,7 @@ export function SecretText(props: FieldComponentProps<SecretTextField>) {
     >
       <div className="join w-full">
         <input
-          className="input input-bordered join-item w-full"
+          className="input input-bordered bg-input join-item w-full"
           type={show ? "text" : "password"}
           disabled={field.disabled}
           value={v}

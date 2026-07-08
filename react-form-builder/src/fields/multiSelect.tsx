@@ -49,7 +49,7 @@ export function MultiSelect(props: FieldComponentProps<MultiSelectField>) {
           ) : (
             <div>
               <Typography variant="body" muted>
-                {context.fieldLabels?.noSelection}
+                {context.labels?.noSelection}
               </Typography>
             </div>
           )}
@@ -79,7 +79,7 @@ export function MultiSelect(props: FieldComponentProps<MultiSelectField>) {
                     >
                       <input
                         type="checkbox"
-                        className="checkbox checkbox-sm"
+                        className="checkbox checkbox-sm bg-input"
                         disabled={field.disabled}
                         checked={checked}
                         onChange={() => toggle(opt.value)}

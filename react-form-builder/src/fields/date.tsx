@@ -27,7 +27,7 @@ export function DateInput(props: FieldComponentProps<DateField>) {
       description={field.description}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="date"
         disabled={field.disabled}
         value={v}

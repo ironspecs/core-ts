@@ -17,7 +17,7 @@ export function DateTimeInput(props: FieldComponentProps<DateTimeField>) {
       description={field.description}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="datetime-local"
         disabled={field.disabled}
         value={v}

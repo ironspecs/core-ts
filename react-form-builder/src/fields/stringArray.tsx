@@ -42,7 +42,7 @@ export function StringArray(props: FieldComponentProps<StringArrayField>) {
       <div className="space-y-2">
         <div className="flex gap-2">
           <input
-            className="input input-bordered w-full"
+            className="input input-bordered bg-input w-full"
             disabled={field.disabled}
             value={draft}
             onChange={(e) => setDraft(e.target.value)}
@@ -59,7 +59,7 @@ export function StringArray(props: FieldComponentProps<StringArrayField>) {
             disabled={field.disabled}
             onClick={add}
           >
-            {context.fieldLabels?.add}
+            {context.labels?.add}
           </button>
         </div>
 
@@ -81,7 +81,7 @@ export function StringArray(props: FieldComponentProps<StringArrayField>) {
           ) : (
             <div>
               <Typography variant="body" muted>
-                {context.fieldLabels?.noEntries}
+                {context.labels?.noEntries}
               </Typography>
             </div>
           )}

@@ -26,7 +26,7 @@ export function Password(props: FieldComponentProps<PasswordField>) {
       error={showErr ? err : undefined}
     >
       <input
-        className="input input-bordered w-full"
+        className="input input-bordered bg-input w-full"
         type="password"
         disabled={field.disabled}
         value={typeof input.value === "string" ? input.value : ""}

@@ -65,7 +65,7 @@ export function JsonEditor(props: FieldComponentProps<JsonField>) {
     >
       <div className="space-y-2">
         <textarea
-          className="textarea textarea-bordered min-h-40 w-full font-mono text-xs"
+          className="textarea textarea-bordered bg-input min-h-40 w-full font-mono text-xs"
           disabled={field.disabled}
           value={text}
           onChange={(e) =>

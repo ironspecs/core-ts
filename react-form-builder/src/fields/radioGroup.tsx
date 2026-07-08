@@ -22,7 +22,7 @@ export function RadioGroup(props: FieldComponentProps<RadioGroupField>) {
           >
             <input
               type="radio"
-              className="radio"
+              className="radio bg-input"
               disabled={field.disabled}
               checked={v === opt.value}
               onChange={() => input.onChange(opt.value)}

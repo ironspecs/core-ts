@@ -46,7 +46,7 @@ export function DiffPreview(props: FieldComponentProps<DiffPreviewField>) {
     return (
       <div>
         <Typography variant="body" muted>
-          {context.fieldLabels?.noChanges}
+          {context.labels?.noChanges}
         </Typography>
       </div>
     );
@@ -56,7 +56,7 @@ export function DiffPreview(props: FieldComponentProps<DiffPreviewField>) {
       <div className="border-base-300 rounded-box border-(length:--border) p-2">
         <div className="mb-2">
           <Typography variant="body">
-            {context.fieldLabels?.original}
+            {context.labels?.original}
           </Typography>
         </div>
         <pre className="overflow-auto">
@@ -67,7 +67,7 @@ export function DiffPreview(props: FieldComponentProps<DiffPreviewField>) {
       </div>
       <div className="border-base-300 rounded-box border-(length:--border) p-2">
         <div className="mb-2">
-          <Typography variant="body">{context.fieldLabels?.draft}</Typography>
+          <Typography variant="body">{context.labels?.draft}</Typography>
         </div>
         <pre className="overflow-auto">
           <Typography variant="mono" size="sm">

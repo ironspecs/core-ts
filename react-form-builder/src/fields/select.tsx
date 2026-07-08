@@ -27,7 +27,7 @@ export function Select(props: FieldComponentProps<SelectField>) {
       error={showErr ? err : undefined}
     >
       <select
-        className="select select-bordered w-full whitespace-nowrap"
+        className="select select-bordered bg-input w-full whitespace-nowrap"
         disabled={field.disabled}
         value={v}
         onChange={(e) => input.onChange(e.target.value)}

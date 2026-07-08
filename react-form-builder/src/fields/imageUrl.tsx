@@ -73,7 +73,7 @@ export function ImageUrl(props: FieldComponentProps<ImageUrlField>) {
           ) : (
             <div className="flex h-full w-full items-center justify-center p-6">
               <Typography variant="body" muted>
-                {context.fieldLabels?.noImage}
+                {context.labels?.noImage}
               </Typography>
             </div>
           )}
