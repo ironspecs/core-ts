@@ -93,13 +93,7 @@ export function FormArray(props: FieldComponentProps<FormArrayField>) {
 
   return (
     <SectionShell
-      label={
-        field.label ? (
-          <Typography variant="title" size="sm">
-            {field.label}
-          </Typography>
-        ) : null
-      }
+      title={field.label}
       collapsible={field.collapsible}
       defaultOpen={field.defaultOpen ?? true}
     >

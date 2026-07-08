@@ -1,4 +1,3 @@
-import { Typography } from "@core-ts/react";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { Field, SectionField } from "../schema.js";
 import { joinName } from "../dotPath.js";
@@ -26,13 +25,8 @@ export function Section(props: FieldComponentProps<SectionField>) {
 
   return (
     <SectionShell
-      label={
-        field.label ? (
-          <Typography variant="title" size="sm">
-            {field.label}
-          </Typography>
-        ) : null
-      }
+      title={field.label}
+      description={field.description}
       collapsible={field.collapsible}
       defaultOpen={field.defaultOpen ?? true}
     >

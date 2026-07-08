@@ -7,6 +7,8 @@
 
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { ArrowLeftIcon } from "lucide-react";
+
+import { AppIcon } from "../components/ui/AppIcon.js";
 import {
   useCallback,
   useRef,
@@ -88,7 +90,7 @@ export function SlidingDrawer(props: SlidingDrawerProps) {
               className="btn btn-ghost focus-visible:ring-primary c-btn-min-h c-btn-min-w gap-1 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
               onClick={onRequestClose}
             >
-              <ArrowLeftIcon className="h-4 w-4" />
+              <AppIcon icon={ArrowLeftIcon} hidden />
               {labels.back}
             </button>
           </div>

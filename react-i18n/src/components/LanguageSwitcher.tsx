@@ -3,7 +3,7 @@
  * supported language list and mutation behavior come from the package runtime.
  */
 
-import { Typography, useMountEffect } from "@core-ts/react";
+import { AppIcon, Typography, useMountEffect } from "@core-ts/react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { CheckIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
@@ -76,7 +76,7 @@ export function LanguageSwitcher(props: LanguageSwitcherProps) {
           className="btn btn-ghost c-btn-min-h c-btn-min-w gap-2"
           aria-label={props.labels.selectLanguage}
         >
-          <Globe className="h-5 w-5" />
+          <AppIcon icon={Globe} hidden />
           <span className="hidden sm:inline">
             <Typography variant="body">{currentLanguage.short}</Typography>
           </span>

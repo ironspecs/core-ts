@@ -12,6 +12,7 @@ import {
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
+import { AppIcon } from "../ui/AppIcon.js";
 import { cn } from "../../lib/cn.js";
 
 export type SubmitButtonState = "idle" | "busy" | "success";
@@ -64,7 +65,7 @@ export function SubmitButton(props: SubmitButtonProps) {
               transition={{ duration: 0.2 }}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <Loader2 className="h-5 w-5 animate-spin" />
+              <AppIcon icon={Loader2} className="animate-spin" hidden />
             </motion.span>
           ) : isSuccess ? (
             <motion.span
@@ -75,7 +76,7 @@ export function SubmitButton(props: SubmitButtonProps) {
               transition={{ duration: 0.2 }}
               className="text-success absolute inset-0 flex items-center justify-center"
             >
-              <Check className="h-5 w-5 stroke-[3]" />
+              <AppIcon icon={Check} className="stroke-[3]" hidden />
             </motion.span>
           ) : null}
         </AnimatePresence>

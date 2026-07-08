@@ -46,5 +46,84 @@
   box-shadow:
     0 1px color-mix(in oklab, var(--color-base-content) 20%, #0000)
       calc(var(--depth) * 10%) inset,
-    0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+     0 -1px oklch(100% 0 0 / calc(var(--depth) * 0.1)) inset;
+}
+
+/**
+ * `.c-collapse` is a simplified `<details>`-based collapsible section that
+ * replaces daisyUI's `collapse` component. It uses the same grid-template-rows
+ * animation pattern but removes horizontal padding so form fields sit flush
+ * with the surrounding layout.
+ *
+ * - `.c-collapse` — the root `<details>` with grid animation and focus ring
+ * - `.c-collapse-title` — the `<summary>` with cursor, no x-padding, and a
+ *   rotating `::after` arrow drawn via `box-shadow`
+ * - `.c-collapse-content` — the body wrapper with bottom breathing room only
+ *
+ * Arrow color inherits from the title's `color` (which defaults to
+ * `var(--color-base-content)` from the consuming app's theme).
+ */
+.c-collapse {
+  border-radius: var(--radius-box);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: max-content 0fr;
+  isolation: isolate;
+  overflow: hidden;
+  width: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .c-collapse {
+    transition: grid-template-rows 0.2s;
+  }
+}
+.c-collapse[open] {
+  grid-template-rows: max-content 1fr;
+}
+.c-collapse:focus-visible,
+.c-collapse:has(summary:focus-visible) {
+  outline: 2px solid var(--color-base-content);
+  outline-offset: 2px;
+}
+.c-collapse summary::-webkit-details-marker {
+  display: none;
+}
+
+.c-collapse-title {
+  cursor: pointer;
+  display: block;
+  grid-column: 1;
+  grid-row: 1;
+  min-height: 1lh;
+  outline: none;
+  padding: 0.5rem 2rem 0.5rem 0;
+  position: relative;
+  width: 100%;
+}
+.c-collapse-title::after {
+  box-shadow: 2px 2px;
+  content: "";
+  display: block;
+  height: 0.5rem;
+  inset-inline-end: 0.75rem;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-75%) rotate(45deg);
+  transform-origin: 75% 75%;
+  width: 0.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .c-collapse-title::after {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+.c-collapse[open] > .c-collapse-title::after {
+  transform: translateY(-25%) rotate(225deg);
+}
+
+.c-collapse-content {
+  grid-column: 1;
+  grid-row: 2;
+  padding-bottom: 0.5rem;
 }

@@ -2,6 +2,7 @@ import { type ButtonHTMLAttributes, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
+import { AppIcon } from "../ui/AppIcon.js";
 import { cn } from "../../lib/cn.js";
 import {
   applyThemeAttributeSafe,
@@ -71,7 +72,7 @@ export function ThemeToggleIconButton(props: ThemeToggleIconButtonProps) {
               transition={{ duration: 0.16 }}
               className="absolute"
             >
-              <Moon className="h-5 w-5" />
+              <AppIcon icon={Moon} hidden />
             </motion.span>
           ) : (
             <motion.span
@@ -82,7 +83,7 @@ export function ThemeToggleIconButton(props: ThemeToggleIconButtonProps) {
               transition={{ duration: 0.16 }}
               className="absolute"
             >
-              <Sun className="h-5 w-5" />
+              <AppIcon icon={Sun} hidden />
             </motion.span>
           )}
         </AnimatePresence>
