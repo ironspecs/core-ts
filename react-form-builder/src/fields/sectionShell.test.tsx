@@ -49,7 +49,7 @@ function expectStaticShell(root: HTMLElement) {
 describe("SectionShell", () => {
   it("renders a collapsible details element with a summary", () => {
     const { container } = render(
-      <SectionShell label="Profile" collapsible defaultOpen>
+      <SectionShell title="Profile" collapsible defaultOpen>
         <div>Body</div>
       </SectionShell>,
     );
@@ -57,13 +57,15 @@ describe("SectionShell", () => {
     const root = getRootElement(container);
 
     expect(root.tagName).toBe("DETAILS");
+    expect(root).toHaveClass("c-collapse");
+
     expect(root).toHaveAttribute("open");
     expect(root.querySelector("summary")).not.toBeNull();
   });
 
   it("renders a static div without collapse behavior", () => {
     const { container, getByText } = render(
-      <SectionShell label="Profile">
+      <SectionShell title="Profile">
         <div>Body</div>
       </SectionShell>,
     );
@@ -86,12 +88,12 @@ describe("SectionShell", () => {
 
     expectStaticShell(root);
     expect(getByText("Body")).toBeInTheDocument();
-    expect(root.children).toHaveLength(1);
+    expect(root.querySelector("h3")).toBeNull();
   });
 
   it("passes className to the root element", () => {
     const { container } = render(
-      <SectionShell label="Profile" className="custom-class">
+      <SectionShell title="Profile" className="custom-class">
         <div>Body</div>
       </SectionShell>,
     );

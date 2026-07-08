@@ -1,5 +1,4 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import { Typography } from "@core-ts/react";
 import type { FieldComponentProps } from "../registryTypes.js";
 import type { Field, TabsField } from "../schema.js";
 import { FieldRenderer } from "../formBuilder.js";
@@ -50,13 +49,7 @@ export function TabsFieldComp(props: FieldComponentProps<TabsField>) {
 
   return (
     <SectionShell
-      label={
-        field.label ? (
-          <Typography variant="title" size="sm">
-            {field.label}
-          </Typography>
-        ) : null
-      }
+      title={field.label}
       collapsible={field.collapsible}
       defaultOpen={field.defaultOpen ?? true}
     >

@@ -5,7 +5,6 @@ import type { DiscriminatingFormField, Field } from "../schema.js";
 import { FieldFrame } from "../fieldFrame.js";
 import { joinName } from "../dotPath.js";
 import { FieldRenderer } from "../formBuilder.js";
-import { Typography } from "@core-ts/react";
 import { SectionShell } from "./sectionShell.js";
 
 function isRecord(v: unknown): v is Record<string, unknown> {
@@ -60,13 +59,7 @@ export function DiscriminatingForm(
 
     return (
       <SectionShell
-        label={
-          field.label ? (
-            <Typography variant="title" size="sm">
-              {field.label}
-            </Typography>
-          ) : null
-        }
+        title={field.label}
         collapsible={!!field.collapsible}
         defaultOpen={field.defaultOpen ?? true}
       >
@@ -145,13 +138,7 @@ export function DiscriminatingForm(
 
   return (
     <SectionShell
-      label={
-        field.label ? (
-          <Typography variant="title" size="sm">
-            {field.label}
-          </Typography>
-        ) : null
-      }
+      title={field.label}
       collapsible={!!field.collapsible}
       defaultOpen={field.defaultOpen ?? true}
     >
