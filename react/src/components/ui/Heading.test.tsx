@@ -31,6 +31,26 @@ describe("Heading", () => {
     expect(screen.getByRole("heading", { level: 3 })).toHaveClass("text-lg");
   });
 
+  it("does not apply gutterBottom class by default", () => {
+    render(<Heading as="h1">Page title</Heading>);
+
+    expect(screen.getByRole("heading", { level: 1 })).not.toHaveClass(
+      "mb-[0.35em]",
+    );
+  });
+
+  it("applies gutterBottom class when true", () => {
+    render(
+      <Heading as="h2" gutterBottom>
+        Section title
+      </Heading>,
+    );
+
+    expect(screen.getByRole("heading", { level: 2 })).toHaveClass(
+      "mb-[0.35em]",
+    );
+  });
+
   it("merges caller class names last", () => {
     render(
       <Heading as="h4" className="custom-class">

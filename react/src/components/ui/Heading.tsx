@@ -10,9 +10,14 @@ const headingVariants = cva("font-semibold", {
       md: "text-2xl",
       lg: "text-3xl",
     },
+    gutterBottom: {
+      true: "mb-[0.35em]",
+      false: "",
+    },
   },
   defaultVariants: {
     size: "md",
+    gutterBottom: false,
   },
 });
 
@@ -27,12 +32,16 @@ export type HeadingProps = HTMLAttributes<HTMLHeadingElement> &
 export function Heading({
   as: Tag,
   size,
+  gutterBottom,
   className,
   children,
   ...rest
 }: HeadingProps) {
   return (
-    <Tag {...rest} className={cn(headingVariants({ size }), className)}>
+    <Tag
+      {...rest}
+      className={cn(headingVariants({ size, gutterBottom }), className)}
+    >
       {children}
     </Tag>
   );
