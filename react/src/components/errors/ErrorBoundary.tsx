@@ -1,4 +1,6 @@
 import { AlertTriangle, Home, RefreshCw } from "lucide-react";
+
+import { AppIcon } from "../ui/AppIcon.js";
 import { Component, type ErrorInfo, type ReactNode } from "react";
 
 import { Heading } from "../ui/Heading.js";
@@ -91,7 +93,7 @@ function ErrorFallback({
       <div className="rounded-box border-base-300 bg-base-100 w-full max-w-lg border-(length:--border) p-8">
         <div className="flex items-center gap-3">
           <div className="bg-error/10 text-error rounded-full p-3">
-            <AlertTriangle className="h-6 w-6" />
+            <AppIcon icon={AlertTriangle} hidden />
           </div>
           <div>
             <Heading as="h1">{labels.title}</Heading>
@@ -122,7 +124,7 @@ function ErrorFallback({
             onClick={onRetry}
             className="btn btn-primary gap-2"
           >
-            <RefreshCw className="h-4 w-4" />
+            <AppIcon icon={RefreshCw} hidden />
             {labels.tryAgain}
           </button>
           <button
@@ -130,7 +132,7 @@ function ErrorFallback({
             onClick={onGoHome}
             className="btn btn-outline gap-2"
           >
-            <Home className="h-4 w-4" />
+            <AppIcon icon={Home} hidden />
             {labels.goHome}
           </button>
         </div>

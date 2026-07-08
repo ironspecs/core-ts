@@ -5,7 +5,7 @@
 
 import { ArrowLeft } from 'lucide-react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { cn } from '@core-ts/react';
+import { AppIcon, cn } from '@core-ts/react';
 
 export function ProgressionBackButton(
   props: ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -35,7 +35,7 @@ export function ProgressionBackButton(
       )}
       {...buttonProps}
     >
-      <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+      <AppIcon icon={ArrowLeft} hidden />
       <span className="whitespace-nowrap">{children}</span>
     </button>
   );
