@@ -30,10 +30,17 @@ jobs:
         if: steps.tag.outputs.found == 'true'
         run: |
           mkdir -p baseline
-          gh release download "${{ steps.tag.outputs.tag }}" --dir baseline
-          # Extract all tarballs into baseline/
-          for tgz in baseline/*.tgz; do
-            tar -xzf "$tgz" -C baseline --strip-components=1
+          if ! gh release download "${{ steps.tag.outputs.tag }}" --dir baseline; then
+            echo "::error::No GitHub release found for tag ${{ steps.tag.outputs.tag }}."
+            echo "Push a v* tag so the Tag Release workflow creates the release first."
+            exit 1
+          fi
+          # Tarballs use the npm pack layout (top-level package/ dir). Extract
+          # each into its own per-package dir so the action finds <pkg>/dist.
+          for pkg in react react-i18n react-progression react-form-builder; do
+            tgz=$(ls "baseline/core-ts-$pkg"-[0-9]*.tgz | head -1)
+            mkdir -p "baseline/$pkg"
+            tar -xzf "$tgz" -C "baseline/$pkg" --strip-components=1
           done
         env:
           GH_TOKEN: ${{ github.token }}

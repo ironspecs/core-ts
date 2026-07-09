@@ -4,6 +4,9 @@ on:
   push:
     tags: ['v[0-9]*']
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -32,13 +35,13 @@ jobs:
 
       - name: Pack and upload packages
         run: |
+          mkdir -p "$RUNNER_TEMP/pack-out"
           for pkg in react react-i18n react-progression react-form-builder; do
-            cd "$pkg"
-            # npm pack creates a tarball of files that would be published
-            bun pm pack
-            TARBALL=$(ls core-ts-*.tgz | head -1)
-            gh release upload "${{ github.ref_name }}" "$pkg/$TARBALL"
-            cd ..
+            (cd "$pkg" && bun pm pack --destination "$RUNNER_TEMP/pack-out")
+            # core-ts-<pkg>-<version>.tgz; the [0-9] anchor disambiguates
+            # "react" from "react-i18n"/"react-form-builder"/"react-progression".
+            tgz=$(ls "$RUNNER_TEMP/pack-out/core-ts-$pkg"-[0-9]*.tgz | head -1)
+            gh release upload "${{ github.ref_name }}" "$tgz"
           done
         env:
           GH_TOKEN: ${{ github.token }}
