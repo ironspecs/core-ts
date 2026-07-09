@@ -8,9 +8,9 @@ description: Use when committing current core-ts changes and pushing them into m
 ## Critical
 
 - Direct pushes to `main` are blocked, create a PR, wait for checks, and then git merge --ff-only.
-- `main` requires `quality` and `dts-release-gate` checks to pass before merging.
+- `main` requires `quality` and `DTS Gate` checks to pass before merging.
 - If generated `*.d.ts` changes from latest release then human approval is required via `release` skill, but avoid API changes if possible.
-- Bypassing hooks or force pushing to `main` or `release` is blocked, do not attempt to bypass these protections.
+- Bypassing hooks or force pushing to `main` is blocked, do not attempt to bypass these protections.
 
 ## Commands
 
@@ -39,5 +39,5 @@ git push origin main
 5. Commit intended files only.
 6. Push the branch.
 7. Open a PR to `main`.
-8. Verify `quality` and `dts-release-gate` pass.
+8. Verify `quality` and `DTS Gate` pass.
 9. Fast-forward `main` to the checked branch and push `main`.

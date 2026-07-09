@@ -1,6 +1,6 @@
 ---
 name: release
-description: Use for core-ts release/main branch gates and release artifact verification.
+description: Use for core-ts tag-based releases and DTS gate verification.
 ---
 
 # Release
@@ -8,60 +8,51 @@ description: Use for core-ts release/main branch gates and release artifact veri
 ## Critical
 
 - Run `./scripts/github-login.sh` before any GitHub operation.
-- `release` requires PR approval, signed commits, and linear history.
-- Release PR heads must include the current `main` tip commit SHA.
-- The main and release gates both use `scripts/assert-git-ancestor.sh`: release
-  PR heads require `origin/main` as an ancestor, and main PR heads require
-  `origin/release` as an ancestor.
-- If a release candidate is stale, rebuild it from current `main` before
-  pushing it again. Do not merge protected branches into the candidate just to
-  satisfy the gate.
-- Squash merges and merge commits are banned.
-- `gh pr merge` cannot satisfy the `release` rules. Do not use it.
-- Merge approved release PRs only with local `git merge --ff-only`, then push `release`.
+- Public API is represented by `v*` tags. There is no `release` branch and no
+  ancestry gate between branches.
+- Cutting a release means pushing a `v*` tag. The `Tag Release` workflow
+  (`tag-release.yml`) then builds, creates the GitHub Release, and attaches the
+  package tarballs.
+- Pull requests targeting `main` run the `DTS Gate` workflow
+  (`dts-gate.yml`), which compares the pull request's generated `*.d.ts`
+  against the nearest ancestor tag's release assets. The comparison uses the
+  shared `softwarepatterns/github-actions/assert-dts-match@v1` action.
+- If a pull request changes generated declarations, cut a new `v*` tag so the
+  release assets carry the accepted declarations, then the `main` pull request
+  compares against that release instead of failing on drift.
 - Do not bypass hooks. Local `git push` runs the repo pre-push dependency check.
 
 ## Useful Commands
 
-Check branch heads:
+List tags and releases:
 
 ```bash
-git ls-remote --heads origin main release
+git ls-remote --tags origin
+gh release list --repo ironspecs/core-ts
 ```
 
-Check PR state:
+Inspect a release's assets:
 
 ```bash
-gh pr view <number> --repo ironspecs/core-ts \
-  --json state,reviewDecision,mergeStateStatus,statusCheckRollup
+gh release view <tag> --repo ironspecs/core-ts
 ```
 
-Watch PR checks:
+List Tag Release workflow runs:
+
+```bash
+gh run list --workflow tag-release.yml --limit 5
+```
+
+Watch pull request checks:
 
 ```bash
 gh pr checks <number> --repo ironspecs/core-ts --watch --interval 10
 ```
 
-List release workflow runs:
+Resolve the nearest ancestor tag for the current HEAD:
 
 ```bash
-gh run list --workflow release-artifact.yml --branch release --limit 5
-```
-
-List artifacts for a run:
-
-```bash
-gh api repos/ironspecs/core-ts/actions/runs/<run-id>/artifacts \
-  --jq '.artifacts[] | {name, expired, size_in_bytes}'
-```
-
-Fast-forward `release` to an approved PR head:
-
-```bash
-git fetch origin release <pr-branch>
-git switch -C release origin/release
-git merge --ff-only <pr-branch>
-git push origin release
+git describe --tags --abbrev=0
 ```
 
 ## Instructions
@@ -69,39 +60,23 @@ git push origin release
 1. Authenticate and verify state.
    - Run `./scripts/github-login.sh`.
    - Check `git status --short --branch`.
-   - Check `git ls-remote --heads origin main release`.
+   - Check `git ls-remote --tags origin` for existing tags.
 
-2. For repo-side release script changes, commit and push to `main` first.
-   - Stage only intended files.
-   - Commit normally and let hooks run.
-   - Push to `main`.
-   - If the first `main` DTS gate runs before any release artifact exists, create the first `release` artifact and rerun or recheck CI.
+2. Cut a release.
+   - Confirm `main` is at the commit you want to release.
+   - Tag it: `git tag <version>` (e.g. `git tag v0.1.0`).
+   - Push the tag: `git push origin <version>`.
 
-3. Verify `release` protection.
-   - Create a small signed verification commit on a branch.
-   - Try `git push origin HEAD:release`.
-   - Confirm GitHub rejects the push with `GH013` when direct pushes are blocked.
-   - Push the branch and create a PR to `release`.
-   - Wait for `quality` and `release-candidate-gate` to pass.
-   - Confirm `release-candidate-gate` requires the PR head to include the
-     current `main` tip.
-   - Confirm review is required before merge.
-
-4. Merge the approved release PR without squashing.
-   - After approval, fetch `origin/release` and the PR branch.
-   - Run `git switch -C release origin/release`.
-   - Run `git merge --ff-only <pr-branch>`.
-   - Run `git push origin release`.
-   - Confirm GitHub marks the PR merged.
-
-5. Confirm release artifact creation.
-   - Find the newest `release-artifact.yml` run on `release`.
+3. Confirm the Tag Release workflow succeeded.
+   - Find the newest `tag-release.yml` run for the tag.
    - Wait for it to complete successfully.
-   - List the run artifacts.
-   - Confirm a non-expired `dist-YYYY-MM-DD-HH-MM` artifact exists.
+   - Confirm a GitHub Release named after the tag exists with the four
+     `core-ts-*.tgz` assets attached.
 
-6. Verify `main` protection.
-   - Tell the user to require PRs and required checks `quality` and `dts-release-gate` on `main`.
-   - Try a direct push to `main` and confirm it is blocked.
-   - Open a mismatch PR that changes generated declarations and confirm `dts-release-gate` fails.
-   - Open or update a match PR with declarations equal to the latest release artifact and confirm `dts-release-gate` passes.
+4. Verify the `main` DTS gate.
+   - Tell the user to require PRs and the required checks `quality` and
+     `DTS Gate` on `main`.
+   - Open a mismatch pull request that changes generated declarations and
+     confirm `DTS Gate` fails.
+   - Open or update a match pull request whose declarations equal the nearest
+     release and confirm `DTS Gate` passes.

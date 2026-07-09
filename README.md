@@ -50,7 +50,6 @@ repositories.
 - `bun run typecheck`
 - `bun run lint`
 - `bun run check:dependencies`
-- `scripts/assert-dts-match.sh <release-artifact-root> <current-repo-root>`
 - `scripts/github-login.sh`
 
 ## GitHub CLI Auth
@@ -70,39 +69,23 @@ repositories.
 
 ## Release Flow
 
-- The `release` branch is only for changes that affect public package API or
-  generated declaration output.
-- Release branch updates must be made through reviewed pull requests targeting
-  `release`.
-- Release pull requests must include the current `main` tip commit SHA. This
-  guarantees `main` can later accept the released candidate through signed,
-  linear history.
-- After approval, merge release pull requests locally from the `release` branch
-  with `git merge --ff-only <approved-branch>`, then push `release`. GitHub's
-  merge buttons cannot satisfy the signed-commit release rules.
-- Pushes to `release` run the `Release Artifact` workflow after the GitHub
-  `release` environment is approved.
-- That workflow builds the workspace packages and uploads a timestamped
-  `dist-YYYY-MM-DD-HH-MM` artifact containing each package `dist` directory.
-- The `dts-release-gate` workflow runs only for pull requests targeting `main`;
-  it downloads the latest successful `release` artifact and compares its
-  generated `*.d.ts` files against the current build.
-- Pull requests targeting `main` must include the current `release` tip commit
-  SHA; the `quality` job asserts that invariant before a `main` pull request
-  can pass.
-- Both branch gates use `scripts/assert-git-ancestor.sh` with the same
-  predicate: the required branch tip must be an ancestor of the candidate
-  `HEAD`.
-
-  | Candidate | Required ancestor |
-  | --- | --- |
-  | `release` PR head | `origin/main` |
-  | `main` PR head | `origin/release` |
-- Update a stale candidate by rebasing or rebuilding it from the required
-  branch tip before pushing it again. Do not merge protected branches into a
-  candidate just to satisfy the ancestry gate.
-- Public declaration changes must be accepted through the `release` branch
-  before they can pass the `main` branch gate.
-- After the release artifact exists, update the corresponding `main` pull
-  request. The `main` DTS gate should then compare against the accepted release
-  artifact instead of failing on unreleased declaration drift.
+- Public API is represented by version tags matching `v*`. A tag is the single
+  accepted-declaration surface; there is no long-lived `release` branch.
+- Cutting a release means pushing a `v*` tag (e.g. `git tag v0.1.0 && git push
+  origin v0.1.0`).
+- The `Tag Release` workflow (`tag-release.yml`) triggers on that tag push: it
+  builds the workspace packages, creates a GitHub Release named after the tag,
+  and attaches the `bun pm pack` tarballs for `react`, `react-i18n`,
+  `react-progression`, and `react-form-builder` as release assets.
+- The `DTS Gate` workflow (`dts-gate.yml`) runs only for pull requests targeting
+  `main`. It resolves the nearest ancestor tag (`git describe --tags
+  --abbrev=0`), downloads that tag's release assets, and compares the released
+  `*.d.ts` files against the pull request's build.
+- The comparison uses the shared
+  `softwarepatterns/github-actions/assert-dts-match@v1` action.
+- If the nearest tag has no GitHub release yet, `DTS Gate` fails with a message
+  directing you to push the `v*` tag so the release is created first.
+- Pull requests targeting `main` are blocked unless their generated declarations
+  match the nearest accepted release. Accept a public declaration change by
+  cutting a new `v*` tag, then update the `main` pull request so it compares
+  against the new release.
