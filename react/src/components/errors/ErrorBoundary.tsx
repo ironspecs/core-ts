@@ -72,14 +72,14 @@ export class ErrorBoundary extends Component<
   }
 }
 
-type ErrorFallbackProps = {
+export type ErrorFallbackProps = {
   error: Error | null;
   labels: ErrorBoundaryLabels;
   onRetry: () => void;
   onGoHome: () => void;
 };
 
-function ErrorFallback({
+export function ErrorFallback({
   error,
   labels,
   onRetry,

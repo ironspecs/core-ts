@@ -6,8 +6,8 @@
 
 import "./types/react-augmented.js";
 
-export { ErrorBoundary } from "./components/errors/ErrorBoundary.js";
-export type { ErrorBoundaryLabels } from "./components/errors/ErrorBoundary.js";
+export { ErrorBoundary, ErrorFallback } from "./components/errors/ErrorBoundary.js";
+export type { ErrorBoundaryLabels, ErrorFallbackProps } from "./components/errors/ErrorBoundary.js";
 
 export { AppIcon } from "./components/ui/AppIcon.js";
 export type { AppIconProps } from "./components/ui/AppIcon.js";
