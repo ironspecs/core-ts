@@ -58,10 +58,10 @@ jobs:
           (cd react-progression && bun pm pack --destination "$RUNNER_TEMP/package-test")
           (cd react-form-builder && bun pm pack --destination "$RUNNER_TEMP/package-test")
           cd "$RUNNER_TEMP/package-test"
-          tar -xzf core-ts-react-0.1.0.tgz -C packages/react --strip-components=1
-          tar -xzf core-ts-react-i18n-0.1.0.tgz -C packages/react-i18n --strip-components=1
-          tar -xzf core-ts-react-progression-0.1.0.tgz -C packages/react-progression --strip-components=1
-          tar -xzf core-ts-react-form-builder-0.1.0.tgz -C packages/react-form-builder --strip-components=1
+          tar -xzf core-ts-react-0.2.0.tgz -C packages/react --strip-components=1
+          tar -xzf core-ts-react-i18n-0.2.0.tgz -C packages/react-i18n --strip-components=1
+          tar -xzf core-ts-react-progression-0.2.0.tgz -C packages/react-progression --strip-components=1
+          tar -xzf core-ts-react-form-builder-0.2.0.tgz -C packages/react-form-builder --strip-components=1
           cat > package.json <<'EOF'
           {
             "name": "package-test",
