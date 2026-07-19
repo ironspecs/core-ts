@@ -19,7 +19,7 @@
     "url": "git@github.com:ironspecs/core-ts.git"
   },
   "dependencies": {
-    "@core-ts/react": "0.1.0",
+    "@core-ts/react": "0.2.0",
     "lucide-react": "^0.544.0"
   },
   "peerDependencies": {
