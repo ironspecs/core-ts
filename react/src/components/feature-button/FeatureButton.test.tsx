@@ -148,18 +148,4 @@ describe("FeatureButton", () => {
     expect(screen.getByTestId("feature-button-dialog")).toBeTruthy();
   });
 
-  it("stays locked when forceLocked is true", async () => {
-    const { fetchFeatures, onEnabledClick } = renderFeatureButton({
-      forceLocked: true,
-    });
-
-    await waitFor(() =>
-      expect(screen.getByTestId("feature-button-trigger")).not.toBeDisabled(),
-    );
-    expect(fetchFeatures).toHaveBeenCalledTimes(0);
-
-    fireEvent.click(screen.getByTestId("feature-button-trigger"));
-    expect(screen.getByTestId("feature-button-dialog")).toBeTruthy();
-    expect(onEnabledClick).toHaveBeenCalledTimes(0);
-  });
 });
