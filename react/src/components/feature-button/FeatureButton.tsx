@@ -49,7 +49,6 @@ export function FeatureButton(props: FeatureButtonProps) {
     session,
     fetchFeatures,
     onEnabledClick,
-    forceLocked,
     lockedMarkdown,
     variant = "primary",
     size = "sm",
@@ -64,7 +63,7 @@ export function FeatureButton(props: FeatureButtonProps) {
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const featureAccessQueryInput =
-    session && !disabled && !forceLocked
+    session && !disabled
       ? { session, accountId, featureKey, fetchFeatures }
       : null;
   const featureAccessQuery = useQuery({
