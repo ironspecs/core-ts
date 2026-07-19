@@ -43,7 +43,6 @@ export type FeatureButtonConfig = {
   session: FeatureButtonSession | null;
   fetchFeatures: FetchAccountSubscriptionFeatures;
   onEnabledClick: () => void;
-  forceLocked?: boolean;
   lockedMarkdown?: ReactNode;
   variant?: FeatureButtonVariant;
   size?: FeatureButtonSize;
